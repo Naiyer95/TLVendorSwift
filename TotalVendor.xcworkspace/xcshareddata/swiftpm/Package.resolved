@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "RxSwift",
+        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "cec68169a048a079f461ba203fe85636548d7a89",
+          "version": "5.1.3"
+        }
+      },
+      {
+        "package": "Screenshots",
+        "repositoryURL": "https://github.com/dequin-cl/Screenshots.git",
+        "state": {
+          "branch": null,
+          "revision": "ac8084c53f693656e778ccbc13e351144fd9a46a",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SteppableSlider",
+        "repositoryURL": "https://github.com/Mildwhale/SteppableSlider.git",
+        "state": {
+          "branch": null,
+          "revision": "5693a1231e3e3e69f15b7e56ac350d4ec730a9f8",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
