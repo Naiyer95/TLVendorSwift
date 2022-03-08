@@ -142,7 +142,7 @@ PODS:
   - SwiftPullToRefresh (3.1.1)
   - Toast-Swift (5.0.1)
   - TwilioChatClient (4.2.1)
-  - TwilioVideo (4.4.0)
+  - TwilioVideo (4.5.0)
   - TwilioVoice (6.2.2)
   - "UIView+draggable (1.1.0)"
   - VeloxDownloader (1.6)
@@ -248,7 +248,7 @@ SPEC CHECKSUMS:
   SwiftPullToRefresh: f61d67439c5b8d66420fe57193cab8c279398e7a
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TwilioChatClient: 7eae02efb2a0882c4cbe39cbb0ba6129681f6fe5
-  TwilioVideo: fcf10b7460e582570887d194b73e75425685d813
+  TwilioVideo: a765f519bb8646187eaa0e9f7443d08529ccba0a
   TwilioVoice: f31bf7cd026fd0a72b102345d29d920be71a2290
   "UIView+draggable": ddfbeb6bdfdeba63d9ccf32dc9be2b66cc589717
   VeloxDownloader: af352622cdc059830d94ca3ea013aaa3380db14d

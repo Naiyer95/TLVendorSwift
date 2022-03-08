@@ -8,69 +8,6 @@
 import UIKit
 import Alamofire
 
-class UploadDocumentsCVC:UICollectionViewCell{
-    
-    @IBOutlet weak var documentImgView:UIImageView!
-    
-    
-    func configFileType(type:String,imageURL:String){
-//        ".txt", ".pdf", ".zip", ".rar", ".doc", ".docx",".ppt", ".pptx", ".xls", ".xlsx", images ,videos, audio,
-        
-        
-        switch type {
-        case "txt",".txt":
-            documentImgView.image = UIImage(systemName: "doc.text.fill")
-            documentImgView.tintColor = .black
-        case "pdf",".pdf":
-            documentImgView.image = UIImage(named:"pdfIcon")
-        case "zip",".zip":
-            documentImgView.image = UIImage(systemName:"doc.zipper")
-            documentImgView.tintColor = .black
-        case "rar",".rar":
-            documentImgView.image = UIImage(systemName:"doc.zipper")
-            documentImgView.tintColor = .black
-        case "doc",".doc":
-            documentImgView.image = UIImage(systemName:"doc.fill")
-            documentImgView.tintColor = .black
-        case "docx",".docx":
-            documentImgView.image = UIImage(systemName:"doc.fill")
-            documentImgView.tintColor = .black
-        case "ppt",".ppt":
-            documentImgView.image = UIImage(systemName:"doc.on.doc.fill")
-            documentImgView.tintColor = .black
-        case "pptx",".pptx":
-            documentImgView.image = UIImage(systemName:"doc.on.doc.fill")
-            documentImgView.tintColor = .black
-        case "xls",".xls":
-            documentImgView.image = UIImage(systemName:"xls")
-            documentImgView.tintColor = .black
-        case "xlsx",".xlsx":
-            documentImgView.image = UIImage(systemName:"xls")
-            documentImgView.tintColor = .black
-        case "png",".png":
-            documentImgView.sd_setImage(with: URL(string: imageURL), completed: nil)
-        case "jpeg",".jpeg":
-            documentImgView.sd_setImage(with: URL(string: imageURL), completed: nil)
-        case "gif",".gif":
-            documentImgView.sd_setImage(with: URL(string: imageURL), completed: nil)
-        case "xml",".xml":
-            documentImgView.image = UIImage(systemName:"safari.fill")
-            documentImgView.tintColor = .black
-        case "html",".html":
-            documentImgView.image = UIImage(systemName:"safari.fill")
-            documentImgView.tintColor = .black
-        default:
-            documentImgView.image = UIImage(systemName:"doc.circle.fill")
-            documentImgView.tintColor = .black
-        }
-        
-        
-        
-    }
-    
-    
-    
-}
 
 class UploadedDocumentsVC: UIViewController {
     var appointmentID = 0
@@ -122,10 +59,6 @@ extension UploadedDocumentsVC:UICollectionViewDelegate,UICollectionViewDataSourc
         let fName = self.apiUploadedFileListResponseModel?.gETVENDORFILELIST?[indexPath.row].fileName ?? ""
         let fExtension = self.apiUploadedFileListResponseModel?.gETVENDORFILELIST?[indexPath.row].fileType ?? ""
         
-        
-       
-        
-        
         self.getFileImgURl(fileName: fName, extensionType: fExtension) { Completion, token, error in
 //            cell.documentImgView.sd_setImage(with: URL(string: token ?? ""), completed: nil)
             cell.configFileType(type: fExtension, imageURL: token ?? "")
@@ -153,10 +86,7 @@ extension UploadedDocumentsVC:UICollectionViewDelegate,UICollectionViewDataSourc
 extension UploadedDocumentsVC{
     func getUploadedFileList(){
         SwiftLoader.show(animated: true)
-        let userId = UserDefaults.standard.value(forKey: UserDeafultsString.instance.UserID) ?? "0"
-        let companyID = UserDefaults.standard.value(forKey: UserDeafultsString.instance.CompanyID) ?? "0"
-        //01/07/2021  MM/dd/yyyy
-        let urlString = "https://lsp.totallanguage.com/VendorTimeFinished/GetData?methodType=GETVENDORFILELIST&AppointmentID=\(appointmentID)"
+      let urlString = "https://lsp.totallanguage.com/VendorTimeFinished/GetData?methodType=GETVENDORFILELIST&AppointmentID=\(appointmentID)"
         print("url to get apiGetVendorDetail  \(urlString)")
                 AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
                     .validate()

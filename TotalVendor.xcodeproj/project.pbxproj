@@ -15,6 +15,7 @@
 		7311010D27D0B98600519888 /* ActiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311010927D0B98600519888 /* ActiveBuilder.swift */; };
 		7311010E27D0B98600519888 /* StringTrimExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311010A27D0B98600519888 /* StringTrimExtension.swift */; };
 		7311010F27D0B98600519888 /* RegexParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311010B27D0B98600519888 /* RegexParser.swift */; };
+		7311011227D727BF00519888 /* UploadDocCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311011127D727BF00519888 /* UploadDocCVCell.swift */; };
 		73148C9126CA2FEC00B00E47 /* URLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73148C9026CA2FEC00B00E47 /* URLModel.swift */; };
 		7320AA3226FC60B200FFF459 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7320AA3126FC60B200FFF459 /* GoogleService-Info.plist */; };
 		7324E33526CD3E0900651703 /* VideoCallViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7324E33426CD3E0900651703 /* VideoCallViewController1.swift */; };
@@ -208,6 +209,7 @@
 		7311010927D0B98600519888 /* ActiveBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveBuilder.swift; sourceTree = "<group>"; };
 		7311010A27D0B98600519888 /* StringTrimExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTrimExtension.swift; sourceTree = "<group>"; };
 		7311010B27D0B98600519888 /* RegexParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexParser.swift; sourceTree = "<group>"; };
+		7311011127D727BF00519888 /* UploadDocCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDocCVCell.swift; sourceTree = "<group>"; };
 		73148C9026CA2FEC00B00E47 /* URLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLModel.swift; sourceTree = "<group>"; };
 		7320AA3126FC60B200FFF459 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7324E33226CCE75A00651703 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -432,6 +434,15 @@
 			path = ActiveLink;
 			sourceTree = "<group>";
 		};
+		7311011027D7276C00519888 /* UploadDocuments */ = {
+			isa = PBXGroup;
+			children = (
+				C45C19C427981DD500D9726D /* UploadedDocumentsVC.swift */,
+				7311011127D727BF00519888 /* UploadDocCVCell.swift */,
+			);
+			path = UploadDocuments;
+			sourceTree = "<group>";
+		};
 		732343C026C63AF500B4A227 /* SwiftModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -537,6 +548,7 @@
 		733F923126C4ED8A000F3ADF /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7311011027D7276C00519888 /* UploadDocuments */,
 				733F920026C4EC35000F3ADF /* ViewController.swift */,
 				733F924826C51C11000F3ADF /* InitialViewController.swift */,
 				733F923226C50950000F3ADF /* LoginViewController.swift */,
@@ -575,7 +587,6 @@
 				C491511027831BD3007CAED8 /* GetPublicClass.swift */,
 				29C3917127846F8B00E1E055 /* ServiceVerificationURLViewController.swift */,
 				C4053DCA27899AA4005548E1 /* TimeZoneViewController.swift */,
-				C45C19C427981DD500D9726D /* UploadedDocumentsVC.swift */,
 				C491A0B52799848F00282B9E /* VendorTimeFinishDetailsVC.swift */,
 				C41FD86B27A27E3A0019F4F1 /* OPICallingViewController.swift */,
 				C41FD86D27A29F6C0019F4F1 /* BlockedAppointmentVC.swift */,
@@ -1147,6 +1158,7 @@
 				C431EA71277A0B7A006695B8 /* ApiOnsiteDetailsResponseModel.swift in Sources */,
 				C40004E3273B928700E9AB67 /* VideoViewNew.swift in Sources */,
 				C467E2322762057400BFE622 /* ApiLanguageDataResponseModelLanguageData.swift in Sources */,
+				7311011227D727BF00519888 /* UploadDocCVCell.swift in Sources */,
 				C41900B42771A49B0052F92E /* ApiVendorNewColorsDataModel.swift in Sources */,
 				C44521AC27A92DDE00AEFA25 /* VendorTimeOffNewViewController.swift in Sources */,
 				C4E9CB28274F72B1005DAD5B /* ApiAppointmentDetailDataModel.swift in Sources */,
@@ -1452,7 +1464,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.70;
+				MARKETING_VERSION = 1.71;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TotalLanguage.Vendor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Total Language Vendor Dev";
@@ -1477,7 +1489,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.70;
+				MARKETING_VERSION = 1.71;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TotalLanguage.Vendor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Total Language Vendor Dev";

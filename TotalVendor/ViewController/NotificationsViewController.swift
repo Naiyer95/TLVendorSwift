@@ -136,10 +136,6 @@ class NotificationViewController: UIViewController,UITextFieldDelegate {
         spinner.center = CGPoint(x: self.notificationTV.bounds.size.width/2-40, y: self.notificationTV.bounds.size.height/2)
         self.notificationTV.isUserInteractionEnabled = false
         self.notificationTV.addSubview(spinner)
-        
-        
-        
-        
         let urlString = "https://lsp.totallanguage.com/Home/GetData?methodType=NotificationsByUsername&UserID=\(userId)&CompanyID=\(companyID)&SortOrder=Desc&RowNumber=0&AppID=0"
         print("url to get notificationDetail  \(urlString)")
         AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
@@ -158,11 +154,7 @@ class NotificationViewController: UIViewController,UITextFieldDelegate {
                         let jsonDecoder = JSONDecoder()
                         self.apiNotificationDetailResponseModel = try jsonDecoder.decode(ApiNotificationResponseModel.self, from: daata)
                         
-                        
-                        
-                        print("Success notification Model \(self.apiNotificationDetailResponseModel)")
-                        let count = self.apiNotificationDetailResponseModel?.notificationsByUsername?.count ?? 0
-//                        self.countLbl.text = "No. of Record \(count)"
+                     
                         self.searchTF.delegate=self
                         //                                SwiftLoader.hide()
                         self.apiNotificationDetailResponseModel?.notificationsByUsername?.forEach({ (notificationData) in

@@ -374,6 +374,7 @@ extension VendorTimeFinishedViewController : UITableViewDelegate, UITableViewDat
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "VendorTimeFinishDetailsVC") as! VendorTimeFinishDetailsVC
         vc.modalPresentationStyle = .fullScreen
         vc.appointmentID = self.apiVendorTimeFinishResponseModel?.gETNEWTIMEFINISHEDLIST?[sender.tag].appointmentID ?? 0
+        vc.appointmentStatus = self.apiVendorTimeFinishResponseModel?.gETNEWTIMEFINISHEDLIST?[sender.tag].appointmentStatusType ?? ""
         vc.delegate = self
         self.present(vc, animated: true, completion: nil)
     }

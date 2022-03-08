@@ -420,7 +420,7 @@ extension LoginViewController{
                                         self.present(alert, animated: true, completion: nil)
                                         
                                     }
-                                    
+                                    print("companyname -->", userData?.companyName)
                                     
                                     UserDefaults.standard.setValue(userData?.ZoneShortForm, forKey: UserDeafultsString.instance.ZoneShortForm)
 

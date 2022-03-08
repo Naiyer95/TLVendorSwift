@@ -79,6 +79,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate,UITableViewD
             }
         }
         getServiceType()
+        print("companyname--------->",UserDefaults.standard.string(forKey: UserDeafultsString.instance.CompanyName))
         let imageData = (userDefaults.value(forKey: UserDeafultsString.instance.CompanyLogo) ?? "")
         let finalData = "\(Live_BASE_URL)\(imageData)"
         print("FINAL DATA IS \(finalData)")
@@ -88,7 +89,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate,UITableViewD
             self.companyLogoIcon.image = UIImage(named: "logo")
             
         }
-        userNameLbl.text = UserDefaults.standard.value(forKey: UserDeafultsString.instance.CompanyName) as? String ?? ""
+        userNameLbl.text = UserDefaults.standard.string(forKey: UserDeafultsString.instance.CompanyName)
         notificationBtn.badgeString = "0"
         notificationBtn.badgeBackgroundColor = #colorLiteral(red: 0, green: 0.5686412892, blue: 0, alpha: 1)
         notificationBtn.badgeTextColor = UIColor.white

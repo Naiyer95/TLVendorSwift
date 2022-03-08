@@ -79,6 +79,7 @@ class VendorTimeFinishDetailsVC: UIViewController,ReimbursingDelegate ,BringSele
     @IBOutlet weak var languageLbl: UILabel!
     @IBOutlet weak var patientInitialLbl: UILabel!
     @IBOutlet weak var documentsTV: UITableView!
+    var appointmentStatus: String = ""
     var delegate:RefreshVendorTimeFinish?
     var currentSelectedDate = Date()
     
@@ -101,7 +102,7 @@ class VendorTimeFinishDetailsVC: UIViewController,ReimbursingDelegate ,BringSele
         self.getTimeFinishedDetailsApiData()
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("RpickerDismiss"), object: nil)
 
-         
+        bookingStatusLbl.text = appointmentStatus
     }
     
     @objc func methodOfReceivedNotification(notification: Notification) {
