@@ -14,10 +14,7 @@ import Foundation
 import LocalAuthentication
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
-    
-    @IBOutlet weak var fingerPrintParentView: UIView!
-    
-    @IBOutlet weak var nameLbl: UILabel!
+    var apiCheckCallStatusResponseModel = [ApiCheckSingleSignInResponseModel]()
     @IBOutlet weak var userNameTxtField: UITextField!
     var apiLogoutFromWebResponseModel : ApiLogoutFromWebResponseModel?
     @IBOutlet weak var touchIdBtnOutlet: UIButton!
@@ -39,29 +36,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     getAuthDetail()
                     print("touch id saved")
                     self.touchIdBtnOutlet.isHidden = false
-                    self.fingerPrintParentView.isHidden=true
+                   
                 }
                 else{
                     self.touchIdBtnOutlet.isHidden = true
-                    self.fingerPrintParentView.isHidden=true
+                   
                 }
+        print("Updated Version 1.81")
 
     }
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let abc = userDefaults.value(forKey: "fullNameforTouchID") as? String ?? ""
-        self.nameLbl.text = "Hi \(abc)"
-        self.fingerPrintParentView.clipsToBounds=true
-        fingerPrintParentView.layer.cornerRadius = 25
-        fingerPrintParentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
-       
+   
+     }
+    
+    @IBAction func btnRegisterTapped(_ sender: Any) {
+        guard let url = URL(string: signUPUrl) else { return }
+        UIApplication.shared.open(url)
     }
     
-    
     @IBAction func cancelBtnTapped(_ sender: Any) {
-        self.fingerPrintParentView.isHidden=true
+       
     }
     
     @IBAction func okbtnTapped(_ sender: Any) {
@@ -310,8 +306,7 @@ extension LoginViewController {
         var password = self.passwordTxtField.text
         let parameters = ["UserName": userName, "Password": password, "Ip": "M", "Latitude": "0", "Longitude": "0", "UserSessionId" : "", "UserLoginKey": ""]
         NetworkLayer.shared.postRequest(url: APIs.USER_LOGIN, parameters: parameters) { response in
-            print("URL REQUEST IS \(APIs.USER_LOGIN) and parameter is \(parameters)")
-            print("API Response ===\(response)")
+           
             activite.stopAnimating()
             
             var responsedata  = response as! NSDictionary
@@ -348,23 +343,18 @@ extension LoginViewController {
         }
         return true
     }
-    
-    
-    
-    
-}
+    }
 
 
 extension LoginViewController{
     
     func postLoginDetails(){
-        SwiftLoader.show(animated: true)
+        SwiftLoader.show(title: "Login..",animated: true)
             guard let uuid = UIDevice.current.identifierForVendor?.uuidString else {
                return
             }
-        var userName = userNameTxtField.text ?? ""
-        var password = passwordTxtField.text ?? ""
-        let parameters = ["UserName": userName, "Password": password, "Ip": "M", "Latitude": "0", "Longitude": "0", "UserSessionId" : "", "UserLoginKey": ""]
+       
+        let parameters = ["UserName": userNameTxtField.text ?? "", "Password": passwordTxtField.text ?? "", "Ip": "M", "Latitude": "0", "Longitude": "0", "UserSessionId" : "", "UserLoginKey": ""]
             print("postLoginDetails--",parameters , APIs.USER_LOGIN)
             AF.request(APIs.USER_LOGIN,
                        method: .post,
@@ -378,11 +368,11 @@ extension LoginViewController{
                         print("Success postLoginDetails Api ",data)
                         do {
                             let decoder = JSONDecoder()
-                            SwiftLoader.hide()
+                           
                             self.apiLoginResponseModel = try decoder.decode(ApiLoginResponseModel.self, from: data)
                             let status : Bool = self.apiLoginResponseModel?.userDetails?.first?.status ?? false
                             if status == true{
-                                print("🎖",self.apiLoginResponseModel)
+                               
                                 let userData = self.apiLoginResponseModel?.userDetails?.first
                                 if userData?.vendorActive==1 && userData?.userType == "6"{
                                     self.view.makeToast("Please proceed through web to upload the documents (Confidentiality Agreement, Contractor Agreement, Criminal Background Check, Hippa Policy, W9, Payroll Policy) for further registration process")
@@ -394,16 +384,12 @@ extension LoginViewController{
                                     let touchID = userDefaults.value(forKey: "touchID") ?? false
                                     if touchID as! Bool && userNameTxtField.text == uname{
                                         hitUpdateTokenApi(userID: userData?.userID ?? 0)
-                                                                    
-                                                                    
-                                                                    
-                                    //                                self.registerTwilioAccessToken(with: item)
-                                                                }
+                                       }
                                     else {
                                         let alert = UIAlertController(title: "Do you want to save this login to use FACE ID/TOUCH ID", message: "", preferredStyle: .alert)
                                         let cancel = UIAlertAction(title: "Cancel", style: .cancel){ cancel  in
                                             
-                                            hitUpdateTokenApi(userID: userData?.userID ?? 0)
+                                            self.hitUpdateTokenApi(userID: userData?.userID ?? 0)
                                             
                                             
         //                                    self.registerTwilioAccessToken(with: item)
@@ -442,9 +428,10 @@ extension LoginViewController{
                                     UserDefaults.standard.setValue(userData?.timeZone1, forKey: UserDeafultsString.instance.TimeZone1)
                                     UserDefaults.standard.setValue(userData?.userID ?? 0, forKey: UserDeafultsString.instance.UserID)
                                     UserDefaults.standard.setValue(userData?.userGuID ?? 0, forKey: UserDeafultsString.instance.userGUID)
-//                                    hitUpdateTokenApi(userID: userData?.userID ?? 0)
+
                                 }
                             } else {
+                                SwiftLoader.hide()
                                 self.view.makeToast(self.apiLoginResponseModel?.userDetails?.first?.Message ?? "", duration: 3.0, position: .center)
                             }
                         } catch let error {
@@ -454,6 +441,7 @@ extension LoginViewController{
                         }
                     case .failure(let error):
                         print(error)
+                        SwiftLoader.hide()
                         self.view.makeToast("Please try after sometime.", duration: 3.0, position: .center)
                     }
                 }
@@ -462,9 +450,9 @@ extension LoginViewController{
 }
 let callController = CXCallController()
 extension LoginViewController{
-//  func hitUpdateTokenApi(userID:Int){
+
         func hitUpdateTokenApi(userID:Int){
-//  UserDefaults.standard.setValue(token, forKey: "FCMToken")
+
             let deviceToken = UserDefaults.standard.value(forKey: "FCMToken")
             let updateVoipToken = UserDefaults.standard.value(forKey: "voipToken") ?? ""
             let url =  APIs.UpdateDeviceToken
@@ -475,7 +463,7 @@ extension LoginViewController{
                    "Status": "Y",
                    "DeviceType": "I"
                ] as [String : Any]
-               print("HITBOOKINGSLOTSSSS----------","\(url)",parameters)
+              
                AF.request(url,
                           method: .post,
                           parameters: parameters,
@@ -486,26 +474,38 @@ extension LoginViewController{
                        switch (respData.result){
                        case .success(_):
                            guard let data = respData.data else {return}
-                           print("Success HITBOOKINGSLOTSSSS-------\(data)")
+                         
                            do{
-                               self.hitlogoutFromWebApi()
                                let decoder = JSONDecoder()
                                self.apiUpdateDeviceTokenResponseModel = try decoder.decode(ApiUpdateTokenResponseModel.self, from: data)
-//           isLoggedIn
-                        UserDefaults.standard.setValue(true, forKey: "isLoggedIn")
-                            print("ApiGrumerProfileResponseModel----------Status----", self.apiUpdateDeviceTokenResponseModel?.table?.first?.success)
-                            guard let status = self.apiUpdateDeviceTokenResponseModel?.table?.first?.success else{ return }
+                               if (self.apiUpdateDeviceTokenResponseModel?.table!.count)! > 0 {
+                                   self.hitlogoutFromWebApi()
+                               }
+                               userDefaults.set(self.apiUpdateDeviceTokenResponseModel?.table?.first?.currentUserGuid, forKey: UserDeafultsString.instance.userGUID)
+                               
+                     guard let status = self.apiUpdateDeviceTokenResponseModel?.table?.first?.success else{ return }
                                if status == 1{
                                    print("----- HITBOOKINGSLOTSSSS SUCCESSFUL----- ")
+                                   self.checkSingleSignin { sucess, err in
+                                       if sucess == true{
+                                           print("login success!!")
+                                           UserDefaults.standard.setValue(true, forKey: "isLoggedIn")
+                                           userDefaults.set(self.apiLoginResponseModel?.userDetails?.first?.timeZone, forKey: "TimeZone")
+                                           
+                                           UserDefaults.standard.setValue(self.apiUpdateDeviceTokenResponseModel?.table?.first?.currentUserGuid ?? 0, forKey: UserDeafultsString.instance.userGUID)
+                                           UserDefaults.standard.setValue(false, forKey: UserDeafultsString.instance.timeZoneDeclined)
+                                           DispatchQueue.main.async {
+                                               let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "navCalendar") as? UINavigationController
+                                                   vc!.modalPresentationStyle = .fullScreen
+                                               self.present(vc!, animated: true, completion: nil)
+                                           }
+                                        
+                                       }
+                                       else {
+                                           self.showAlert()
+                                       }
+                                   }
                                    
-                                   userDefaults.set(self.apiLoginResponseModel?.userDetails?.first?.timeZone, forKey: "TimeZone")
-                                   
-                                   UserDefaults.standard.setValue(self.apiUpdateDeviceTokenResponseModel?.table?.first?.currentUserGuid ?? 0, forKey: UserDeafultsString.instance.userGUID)
-                                   UserDefaults.standard.setValue(false, forKey: UserDeafultsString.instance.timeZoneDeclined)
-                                   
-                                let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "navCalendar") as? UINavigationController
-                                    vc!.modalPresentationStyle = .fullScreen
-                                self.present(vc!, animated: true, completion: nil)
                                }
                            } catch let error {
 //                               SwiftLoader.hide()
@@ -520,6 +520,69 @@ extension LoginViewController{
                        }
                    }
            }
+    
+    func checkSingleSignin(completionHandler:@escaping(Bool?, Error?) ->()){
+        SwiftLoader.show(animated: true)
+        
+        let urlString = APIs.getSingleSignInStatus
+        let userID = userDefaults.value(forKey: UserDeafultsString.instance.UserID) ?? "0"
+        let currentGUID = userDefaults.string(forKey: UserDeafultsString.instance.userGUID) ?? "0"
+        let srchString = "<INFO><USERID>\(userID)</USERID><GUID>\(currentGUID)</GUID></INFO>"
+        let parameters = [
+            "strSearchString":srchString
+        ] as [String:Any]
+        print("url to get  checkSingleSignintttt \(urlString),\(parameters)")
+        AF.request(urlString, method: .post , parameters: parameters, encoding: JSONEncoding.default, headers: nil)
+            .validate()
+            .responseData(completionHandler: { (response) in
+                //                SwiftLoader.hide()
+                switch(response.result){
+                    
+                case .success(_):
+                    guard let daata = response.data else { return }
+                    do {
+                        print("check singel user response ",daata)
+                        let jsonDecoder = JSONDecoder()
+                        self.apiCheckCallStatusResponseModel = try jsonDecoder.decode([ApiCheckSingleSignInResponseModel].self, from: daata)
+                        print("Success getVendorIDs Model ",self.apiCheckCallStatusResponseModel.first?.result ?? "")
+                        let str = self.apiCheckCallStatusResponseModel.first?.result ?? ""
+                        
+                        print("STRING DATA IS \(str)")
+                        let data = str.data(using: .utf8)!
+                        do {
+                            //
+                            print("DATAAA ISSS \(data)")
+                            if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [Dictionary<String,Any>]
+                            {
+                                
+                                let newjson = jsonArray.first
+                                let userInfo = newjson?["UserGuIdInfo"] as? [[String:Any]]
+                                if userInfo!.count > 0 {
+                                    completionHandler(true, nil)
+                                }
+                                else {
+                                    completionHandler(false, nil)
+                                }
+
+}
+                            else {
+                                print("bad json")
+                            }
+                        } catch let error as NSError {
+                            print(error)
+                        }
+                        
+                    } catch{
+                        
+                        print("error block getVendorIDs Data  " ,error)
+                    }
+                case .failure(_):
+                    print("Respose Failure getVendorIDs ")
+                    
+                }
+            })
+    }
+    
 
     func hitlogoutFromWebApi(){
 //  UserDefaults.standard.setValue(token, forKey: "FCMToken")
@@ -568,6 +631,14 @@ extension LoginViewController{
                    }
                }
        }
+    func showAlert(){
+        let refreshAlert = UIAlertController(title: "Someone Logged in", message: "The vendor already logged-in on another device.", preferredStyle: UIAlertController.Style.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Login", style: .default, handler: { (action: UIAlertAction!) in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        present(refreshAlert, animated: true, completion: nil)
+    }
 
 
 }

@@ -72,6 +72,12 @@ class NewSideMenuViewController: UIViewController {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CalendarViewController") as! CalendarViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func btnScannerTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: Storyboard_name.scanner, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "VendorQRCodeScannerVC") as! VendorQRCodeScannerVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @IBAction func callsTapped (_ sender: Any){
         
         callsOpen = !callsOpen

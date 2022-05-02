@@ -82,7 +82,10 @@ class VendorTimeFinishDetailsVC: UIViewController,ReimbursingDelegate ,BringSele
     var appointmentStatus: String = ""
     var delegate:RefreshVendorTimeFinish?
     var currentSelectedDate = Date()
-    
+    var notess=""
+    var eTime = ""
+    var sime = ""
+    @IBOutlet weak var tblVendorDetail: UITableView!
     override func viewDidLoad() {
         self.getReimbursementData()
         addReimbursementTV.delegate=self
@@ -136,11 +139,7 @@ class VendorTimeFinishDetailsVC: UIViewController,ReimbursingDelegate ,BringSele
         
     }
     
-    
-    
-    
-    
-    @IBAction func addBtnOutlet(_ sender: Any) {
+   @IBAction func addBtnOutlet(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddReimbursementVC") as! AddReimbursementVC
         vc.reimburseDelegate=self
         vc.forEdit = false
@@ -193,7 +192,7 @@ class VendorTimeFinishDetailsVC: UIViewController,ReimbursingDelegate ,BringSele
     
     func  calculateTimeDifference(startTime:String,endTime:String)->String{
         //        let startTime = "10:30AM"
-        //            let endTime = "1:20PM"
+       
         
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mma"
@@ -252,20 +251,7 @@ extension VendorTimeFinishDetailsVC: HSAttachmentPickerDelegate {
         self.uploadDocument(data, filename: filename, myMineTYPE: mtype) { resultt in
             print("RESULLT IS \(resultt)")
         }
-       /* if image == nil {
-            self.uploadDocument(data, filename: filename, myMineTYPE: mtype) { resultt in
-                print("RESULLT IS \(resultt)")
-            }
-        }
-        else {
-            DispatchQueue.main.async {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignatureVC") as! SignatureVC
-                vc.modalPresentationStyle = .fullScreen
-                vc.selectedImage = image!
-                vc.delegate=self
-                self.present(vc, animated: true, completion: nil)
-            }
-        }*/
+       
         
         
     }
@@ -274,6 +260,7 @@ extension VendorTimeFinishDetailsVC{
     
     fileprivate func uploadDocument(_ file: Data,filename : String,myMineTYPE:String,handler : @escaping (String) -> Void) {
         DispatchQueue.main.async {
+            self.tblVendorDetail.isUserInteractionEnabled = false
             self.progressView.alpha = 1.0
             self.progressView.progress=0.0
             self.progressBarSuperView.isHidden=false
@@ -285,7 +272,7 @@ extension VendorTimeFinishDetailsVC{
         let headers: HTTPHeaders = [
             "Content-type": "multipart/form-data"
         ]
-        let url = "https://lsp.totallanguage.com/VendorManagement/VendorTimeFinished/ImportData?AuthCode=\(authCode)"
+        let url = baseURL + "VendorManagement/VendorTimeFinished/ImportData?AuthCode=\(authCode)"
         AF.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(file, withName: "files" , fileName: filename, mimeType: myMineTYPE)
@@ -311,6 +298,7 @@ extension VendorTimeFinishDetailsVC{
                             self.documentsTV.reloadData()
                             self.progressView.alpha = 0.0
                             self.progressBarSuperView.isHidden=true
+                            self.tblVendorDetail.isUserInteractionEnabled = true
                         }
                     }
                     catch
@@ -489,7 +477,7 @@ extension VendorTimeFinishDetailsVC{
         let companyID = UserDefaults.standard.value(forKey: UserDeafultsString.instance.CompanyID) ?? "0"
         //01/07/2021  MM/dd/yyyy  SwiftLoader.show(animated: true)
         
-        let urlString = "https://lsp.totallanguage.com/Home/GetData?methodType=AppointmentInterpreterData&NotoficationId=0&AppointmentID=\(appointmentID)&Interpreterid=\(userId)&UserType=6&Userid=\(userId)"
+        let urlString = baseURL + "Home/GetData?methodType=AppointmentInterpreterData&NotoficationId=0&AppointmentID=\(appointmentID)&Interpreterid=\(userId)&UserType=6&Userid=\(userId)"
         print("url to get apiGetVendorDetail  \(urlString)")
         AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()
@@ -507,8 +495,8 @@ extension VendorTimeFinishDetailsVC{
                         self.authCodeLbl.text = apiData?.authCode ?? "N/A"
                         self.customerNameLbl.text = apiData?.customerName ?? "N/A"
                         self.startTimeLbl.text = self.convertTimeFormater(apiData?.startDateTime ?? "")
-                        self.endDate = self.convertDateFormater(apiData?.endDateTime ?? "")
-                        self.startDateFull=self.convertDateFormater(apiData?.startDateTime ?? "")
+                        self.endDate = CommonClass.share.convertDateFormater(apiData?.endDateTime ?? "")
+                        self.startDateFull = CommonClass.share.convertDateFormater(apiData?.startDateTime ?? "")
                         self.endTimeLbl.text = self.convertTimeFormater(apiData?.endDateTime  ?? "N/A")
                         self.nameLbl.text = (apiData?.venueName ?? "N/A")
                         self.addressLbl.text = (apiData?.address ?? "N/A")
@@ -545,11 +533,9 @@ extension VendorTimeFinishDetailsVC{
     
     
     func getReimbursementData(){
-        let userId = UserDefaults.standard.value(forKey: UserDeafultsString.instance.UserID) ?? "0"
-        let companyID = UserDefaults.standard.value(forKey: UserDeafultsString.instance.CompanyID) ?? "0"
-        //01/07/2021  MM/dd/yyyy  SwiftLoader.show(animated: true)
+       
         
-        let urlString = "https://lsp.totallanguage.com/Home/GetData?methodType=ADDITIONREMBERSMENT&AppointmentID=\(self.appointmentID)"
+        let urlString = baseURL + "Home/GetData?methodType=ADDITIONREMBERSMENT&AppointmentID=\(self.appointmentID)"
         print("getReimbursementData  \(urlString)")
         AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()
@@ -585,11 +571,7 @@ extension VendorTimeFinishDetailsVC{
                                 
                             })
                             
-                            
-                            
-                            
-                            
-                            var st = ""
+                           var st = ""
                             switch apiData.tAdditionalresStatus {
                             case 0:
                                 st="Pending"
@@ -625,12 +607,8 @@ extension VendorTimeFinishDetailsVC{
 
 extension VendorTimeFinishDetailsVC{
     func updateVendorTimeFinishDocumentData(){
-        let vendorID = userDefaults.value(forKey: UserDeafultsString.instance.UserID) as? String ?? "0"
-        
+       
         var finalServerArray = [SendingToServerApiModel]()
-        
-        
-        
         mainAddReimbursementArray.forEach {
             MainReimbursementModel in
             MainReimbursementModel.filesString.forEach { AddReimubursementModel in
@@ -677,9 +655,9 @@ extension VendorTimeFinishDetailsVC{
         .responseData { response in
             switch response.result {
             case .success(_):
-                print("API REQUEST IS \(AF.request)")
+                
                 guard let data = response.data else { return }
-                print("updateVendorTimeFinishDocumentData ",data)
+               
                 var uploadDocumentsResponseModel:ApiUploadDocumentResponseModel?
                 do {
                     let decoder = JSONDecoder()
@@ -736,9 +714,8 @@ extension VendorTimeFinishDetailsVC{
         ]
         let jsonData = try? JSONSerialization.data(withJSONObject: parameterss)
         // create post request
-        let url = URL(string: "https://lsp.totallanguage.com/VendorManagement/VendorTimeFinished/UploadDocuments")!
-        print("PARAMTER\(parameterss) AND JSON DATA IS\(jsonData)")
-        var request = URLRequest(url: url)
+       
+        var request = URLRequest(url: API.UploadDocuments.url)
         request.httpMethod = "POST"
         
         // insert json data to the request
@@ -753,23 +730,16 @@ extension VendorTimeFinishDetailsVC{
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
                 print("RESPONSE DATA JSON IS",responseJSON)
-                self.updateVendorTimeFinishFinalUpdate()
+                DispatchQueue.main.async {
+                    self.updateVendorTimeFinishFinalUpdate()
+                }
+               
             }
         }
         task.resume()
     }
     
-    func convertDateFormater(_ date: String) -> String
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        if let newdate = dateFormatter.date(from: date) {
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            return  dateFormatter.string(from: newdate)
-        }else {
-            return ""
-        }
-    }
+    
     
     func updateVendorTimeFinishFinalUpdate(){
         var finalServerReimburseArray = [SendingToServerFinalApiModel]()
@@ -778,7 +748,7 @@ extension VendorTimeFinishDetailsVC{
             
             var fileNameArray = [String]()
             let currentRe = MainReimbursementModel.filesString
-            var currentFile = ""
+            
             fileNameArray.removeAll()
             
             currentRe.forEach { AddReimubursementModel in
@@ -807,44 +777,32 @@ extension VendorTimeFinishDetailsVC{
         let userId = userDefaults.string(forKey: UserDeafultsString.instance.UserID) ?? ""
         print("FINAL SERVER REIMBURSEMENT ARRAY IS \(finalServerReimburseArray)")
         print("ADD ON ARRAY IS \(addOnArr)")
-        var notess=""
-        var eTime = ""
-        var sime = ""
-        DispatchQueue.main.async { [self] in
-            sime = self.startTimeLbl.text ?? ""
-            notess = self.notesTF.text ?? ""
-            eTime = self.endTimeLbl.text ?? ""
-        }
-        
-       let apiData = self.apiGetVendorTimeFinishedDetailsApiResponseModel?.appointmentInterpreterData?.first
+       
+let apiData = self.apiGetVendorTimeFinishedDetailsApiResponseModel?.appointmentInterpreterData?.first
         
         let parameterss:[String:Any] = [
             "AppointmentDetails":[
-                "AppointmentID":self.appointmentID,
+                "AppointmentID":"\(self.appointmentID)",
                 "ClientInvoiceNotes":apiData?.clientInvoiceNotes ?? "",
                 "AdditionRembersmentList":addOnArr,
                 "OnsiteMilage":false,
-                "UpdatedStartDate":"\(sime)",
-                "FinishedTime":"\(eTime)",
+                "UpdatedStartDate":self.startTimeLbl.text ?? "",
+                "FinishedTime":self.endTimeLbl.text ?? "",
                 "BillProcess":false,
                 "typeuser":"Vendor",
-                "AdditionTravelTimePay":"00:00",
+                "AdditionTravelTimePay":"0",
                 "hashofminutes":"",
                 "CustomerUserID":userId,
                 "Encounter":"0",
-                "TFNotes":notess
+                "TFNotes":self.notesTF.text ?? "",
+                "InterpreterRate": apiData?.oSPerHourFee ?? "0"
             ]
             
         ]
         print(" eTime-------------->", eTime, "par:",parameterss)
         let jsonData = try? JSONSerialization.data(withJSONObject: parameterss)
         // create post request
-        
-        let url = URL(string: "https://lsp.totallanguage.com/VendorManagement/VendorTimeFinished/AddUpdateTimeFinishedAppointment")!
-        print("PARAMTERUPDATE REQUEST IS\(parameterss) AND JSON DATA IS\(jsonData)")
-        
-        
-        var request = URLRequest(url: url)
+       var request = URLRequest(url: API.AddUpdateTimeFinishedAppointment.url)
         request.httpMethod = "POST"
         
         // insert json data to the request
@@ -861,7 +819,7 @@ extension VendorTimeFinishDetailsVC{
                 
                 DispatchQueue.main.async {
                     SwiftLoader.hide()
-                    print("RESPONSE DATA JSON IS",responseJSON)
+                    print("RESPONSE DATA JSON IS:AddUpdateTimeFinishedAppointment",responseJSON)
                     mainAddReimbursementArray.removeAll()
                     uploadedTimeFinishDocumentArray.removeAll()
                     timeFinishedReimbursementArray.removeAll()

@@ -80,24 +80,74 @@ func getHexaString(status: String) -> String? {
         return "#9739F4"
     case "latecancelled":
         return "#C9C9C9"
+    case "invoiceprocessing":
+        return "#2AFFFF"
+    case "assigned":
+        return "#099c2f"
     case "inprocess":
         return "#2AFFFF "
     case "invoiced":
         return "#A1B587"
     case "notbooked1":
         return "#FF2525"
+    case "confirmed":
+        return "#32ad52"
+    case "pending":
+        return "#B3E9F1"
+    case "finished":
+       return "#1D75DB"
+    case "inpocessclr":
+        return "#8EDEEB"
+    case "lateCusomerReq":
+        return "#acea31"
     default:
-       return "#ffffff"
+        return "#000000"
     }
 }
 class CommonClass: NSObject{
-     static let share = CommonClass()
+    static let share = CommonClass()
     public func activeLinkCall(activeURL : URL) {
         if #available(iOS 10, *) {
             UIApplication.shared.open(activeURL, options: [:], completionHandler:nil)
         } else {
             UIApplication.shared.openURL(activeURL)
         }
+    }
+    func convertDateFormater(_ date: String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        if let newdate = dateFormatter.date(from: date) {
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            return  dateFormatter.string(from: newdate)
+        }else {
+            return ""
+        }
+    }
+    func getDateAndTime(startDateAndTime: String,endDateAndTime:String) -> Bool{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        let sTime = formatter.date(from: startDateAndTime)
+        let eTime = formatter.date(from: endDateAndTime)
+        
+        if sTime?.compare(eTime!) == .orderedAscending {
+            
+            print("First Date is smaller then second date")
+            return true
+        }
+        if sTime?.compare(eTime!) == .orderedDescending {
+            return  false
+        }
+        if sTime?.compare(eTime!) == .orderedSame {
+            return  false
+        }
+        return  false
+    }
+    func pickerDateAndTimeformate(dateAndTime: String) -> Date {
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        let pickerDate = dformatter.date(from: dateAndTime) ?? Date()
+        return pickerDate
     }
 }
 

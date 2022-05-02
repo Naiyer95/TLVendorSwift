@@ -10,6 +10,8 @@
 		29C3916C2784630200E1E055 /* ApiAcceptByVendorRequestDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C3916A2784630200E1E055 /* ApiAcceptByVendorRequestDataModel.swift */; };
 		29C3916D2784630200E1E055 /* VendorAcceptAndDeclineStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C3916B2784630200E1E055 /* VendorAcceptAndDeclineStatus.swift */; };
 		29C3917227846F8B00E1E055 /* ServiceVerificationURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C3917127846F8B00E1E055 /* ServiceVerificationURLViewController.swift */; };
+		7307FC9A27F1ABE7005DE4B8 /* OpenSans-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7307FC9827F1ABE7005DE4B8 /* OpenSans-VariableFont_wdth,wght.ttf */; };
+		7307FC9B27F1ABE7005DE4B8 /* OpenSans-Italic-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7307FC9927F1ABE7005DE4B8 /* OpenSans-Italic-VariableFont_wdth,wght.ttf */; };
 		7311010627D0B31800519888 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311010527D0B31800519888 /* ActiveLabel.swift */; };
 		7311010C27D0B98600519888 /* ActiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311010827D0B98600519888 /* ActiveType.swift */; };
 		7311010D27D0B98600519888 /* ActiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7311010927D0B98600519888 /* ActiveBuilder.swift */; };
@@ -24,6 +26,9 @@
 		73270A8C26C57D6700A6F649 /* VideoCallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73270A8B26C57D6700A6F649 /* VideoCallCell.swift */; };
 		73270A8E26C57DE400A6F649 /* ParticipantsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73270A8D26C57DE400A6F649 /* ParticipantsCell.swift */; };
 		73270A9026C580C200A6F649 /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73270A8F26C580C200A6F649 /* RatingViewController.swift */; };
+		7332D0E9281164E900AB40F6 /* VendorQRCodeScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7332D0E8281164E900AB40F6 /* VendorQRCodeScannerVC.swift */; };
+		7332D0EB2811653600AB40F6 /* scanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7332D0EA2811653600AB40F6 /* scanner.storyboard */; };
+		7332D0ED2811758600AB40F6 /* ScannerStatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7332D0EC2811758600AB40F6 /* ScannerStatusVC.swift */; };
 		733F91FD26C4EC35000F3ADF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733F91FC26C4EC35000F3ADF /* AppDelegate.swift */; };
 		733F91FF26C4EC35000F3ADF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733F91FE26C4EC35000F3ADF /* SceneDelegate.swift */; };
 		733F920126C4EC35000F3ADF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733F920026C4EC35000F3ADF /* ViewController.swift */; };
@@ -55,6 +60,8 @@
 		733F925F26C5395B000F3ADF /* VideoCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733F925E26C5395B000F3ADF /* VideoCallViewController.swift */; };
 		7355607527171A540041D81D /* ExtensionVisibilityUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7355607427171A540041D81D /* ExtensionVisibilityUIView.swift */; };
 		7377CFCA2715A57B0012A4DE /* ApiGetRatingScreenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377CFC92715A57B0012A4DE /* ApiGetRatingScreenResponseModel.swift */; };
+		738263822800118C00FD3695 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738263812800118C00FD3695 /* LoginViewModel.swift */; };
+		73826384280014CC00FD3695 /* ConstantString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73826383280014CC00FD3695 /* ConstantString.swift */; };
 		73851D8326F0799B00C58848 /* ApiLoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73851D8126F0799B00C58848 /* ApiLoginResponseModel.swift */; };
 		73851D8426F0799B00C58848 /* ApiLoginResponseModelUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73851D8226F0799B00C58848 /* ApiLoginResponseModelUserDetails.swift */; };
 		73924C7C26F31EBE001F622F /* ApiUpdateTokenResponseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73924C7A26F31EBE001F622F /* ApiUpdateTokenResponseTable.swift */; };
@@ -84,6 +91,7 @@
 		73BFCFFA270C523900773A70 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73BFCFEE270C523900773A70 /* OpenSans-Regular.ttf */; };
 		73BFCFFB270C523900773A70 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73BFCFEF270C523900773A70 /* OpenSans-BoldItalic.ttf */; };
 		73C1E7FE27350C8F00139C8F /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C1E7FD27350C8F00139C8F /* RoomViewModel.swift */; };
+		73CE641027F1753500A82685 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CE640F27F1753500A82685 /* SignUpVC.swift */; };
 		73ECCC7D26CEAE490055A159 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECCC7926CEAE490055A159 /* SettingsTableViewController.swift */; };
 		73ECCC7E26CEAE490055A159 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECCC7A26CEAE490055A159 /* Settings.swift */; };
 		73ECCC7F26CEAE490055A159 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECCC7B26CEAE490055A159 /* Utils.swift */; };
@@ -204,6 +212,8 @@
 		3F32A7951843AFFAA47C520F /* Pods-TotalVendor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TotalVendor.debug.xcconfig"; path = "Target Support Files/Pods-TotalVendor/Pods-TotalVendor.debug.xcconfig"; sourceTree = "<group>"; };
 		4B4A987FF9E05D6915A065A8 /* Pods_TotalVendorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TotalVendorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD3EDCE689D537BFF8C867C /* Pods-TotalVendor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TotalVendor.release.xcconfig"; path = "Target Support Files/Pods-TotalVendor/Pods-TotalVendor.release.xcconfig"; sourceTree = "<group>"; };
+		7307FC9827F1ABE7005DE4B8 /* OpenSans-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
+		7307FC9927F1ABE7005DE4B8 /* OpenSans-Italic-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
 		7311010527D0B31800519888 /* ActiveLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
 		7311010827D0B98600519888 /* ActiveType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveType.swift; sourceTree = "<group>"; };
 		7311010927D0B98600519888 /* ActiveBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveBuilder.swift; sourceTree = "<group>"; };
@@ -220,6 +230,9 @@
 		73270A8B26C57D6700A6F649 /* VideoCallCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallCell.swift; sourceTree = "<group>"; };
 		73270A8D26C57DE400A6F649 /* ParticipantsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCell.swift; sourceTree = "<group>"; };
 		73270A8F26C580C200A6F649 /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
+		7332D0E8281164E900AB40F6 /* VendorQRCodeScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorQRCodeScannerVC.swift; sourceTree = "<group>"; };
+		7332D0EA2811653600AB40F6 /* scanner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = scanner.storyboard; sourceTree = "<group>"; };
+		7332D0EC2811758600AB40F6 /* ScannerStatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerStatusVC.swift; sourceTree = "<group>"; };
 		733F91F926C4EC35000F3ADF /* TotalVendor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TotalVendor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		733F91FC26C4EC35000F3ADF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		733F91FE26C4EC35000F3ADF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +270,8 @@
 		733F925E26C5395B000F3ADF /* VideoCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallViewController.swift; sourceTree = "<group>"; };
 		7355607427171A540041D81D /* ExtensionVisibilityUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionVisibilityUIView.swift; sourceTree = "<group>"; };
 		7377CFC92715A57B0012A4DE /* ApiGetRatingScreenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiGetRatingScreenResponseModel.swift; sourceTree = "<group>"; };
+		738263812800118C00FD3695 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		73826383280014CC00FD3695 /* ConstantString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantString.swift; sourceTree = "<group>"; };
 		73851D8126F0799B00C58848 /* ApiLoginResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiLoginResponseModel.swift; sourceTree = "<group>"; };
 		73851D8226F0799B00C58848 /* ApiLoginResponseModelUserDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiLoginResponseModelUserDetails.swift; sourceTree = "<group>"; };
 		73924C7A26F31EBE001F622F /* ApiUpdateTokenResponseTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiUpdateTokenResponseTable.swift; sourceTree = "<group>"; };
@@ -283,6 +298,7 @@
 		73BFCFEE270C523900773A70 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		73BFCFEF270C523900773A70 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		73C1E7FD27350C8F00139C8F /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
+		73CE640F27F1753500A82685 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		73ECCC7926CEAE490055A159 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		73ECCC7A26CEAE490055A159 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		73ECCC7B26CEAE490055A159 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -461,6 +477,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		7332D0E7281164C400AB40F6 /* QRCodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				7332D0E8281164E900AB40F6 /* VendorQRCodeScannerVC.swift */,
+				7332D0EA2811653600AB40F6 /* scanner.storyboard */,
+				7332D0EC2811758600AB40F6 /* ScannerStatusVC.swift */,
+			);
+			path = QRCodeScanner;
+			sourceTree = "<group>";
+		};
 		733F91F026C4EC35000F3ADF = {
 			isa = PBXGroup;
 			children = (
@@ -548,6 +574,9 @@
 		733F923126C4ED8A000F3ADF /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7332D0E7281164C400AB40F6 /* QRCodeScanner */,
+				738263802800117200FD3695 /* LoginVM */,
+				73CE640E27F1750200A82685 /* SignUpVC */,
 				7311011027D7276C00519888 /* UploadDocuments */,
 				733F920026C4EC35000F3ADF /* ViewController.swift */,
 				733F924826C51C11000F3ADF /* InitialViewController.swift */,
@@ -601,6 +630,14 @@
 				C45C5B0627CC8CF40094A65B /* BlockedAppointmentVirtualMeetingDetails.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		738263802800117200FD3695 /* LoginVM */ = {
+			isa = PBXGroup;
+			children = (
+				738263812800118C00FD3695 /* LoginViewModel.swift */,
+			);
+			path = LoginVM;
 			sourceTree = "<group>";
 		};
 		73851D8026F0799B00C58848 /* ApiLoginResponseModel */ = {
@@ -668,6 +705,8 @@
 		73BFCFE3270C523900773A70 /* OpenSans */ = {
 			isa = PBXGroup;
 			children = (
+				7307FC9927F1ABE7005DE4B8 /* OpenSans-Italic-VariableFont_wdth,wght.ttf */,
+				7307FC9827F1ABE7005DE4B8 /* OpenSans-VariableFont_wdth,wght.ttf */,
 				73BFCFE4270C523900773A70 /* OpenSans-SemiBold.ttf */,
 				73BFCFE5270C523900773A70 /* OpenSans-Light.ttf */,
 				73BFCFE6270C523900773A70 /* OpenSans-Italic.ttf */,
@@ -682,6 +721,14 @@
 				73BFCFEF270C523900773A70 /* OpenSans-BoldItalic.ttf */,
 			);
 			path = OpenSans;
+			sourceTree = "<group>";
+		};
+		73CE640E27F1750200A82685 /* SignUpVC */ = {
+			isa = PBXGroup;
+			children = (
+				73CE640F27F1753500A82685 /* SignUpVC.swift */,
+			);
+			path = SignUpVC;
 			sourceTree = "<group>";
 		};
 		73ECCC7826CEAE490055A159 /* Utils */ = {
@@ -708,6 +755,7 @@
 				C41DE89F27C71B01000CAAE9 /* MimeTYPE.swift */,
 				C45C5B0827CC97130094A65B /* CopyableLabel.swift */,
 				73A2DAC227CDDF8C000DBA28 /* API.swift */,
+				73826383280014CC00FD3695 /* ConstantString.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -992,15 +1040,18 @@
 				73BFCFF7270C523900773A70 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				73BFCFF9270C523900773A70 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				73BFCFF6270C523900773A70 /* OpenSans-Bold.ttf in Resources */,
+				7332D0EB2811653600AB40F6 /* scanner.storyboard in Resources */,
 				73BFCFF3270C523900773A70 /* OpenSans-MediumItalic.ttf in Resources */,
 				73BFCFF1270C523900773A70 /* OpenSans-Light.ttf in Resources */,
 				73BFCFF4270C523900773A70 /* OpenSans-ExtraBold.ttf in Resources */,
 				73BFCFF8270C523900773A70 /* OpenSans-Medium.ttf in Resources */,
 				733F920C26C4EC36000F3ADF /* LaunchScreen.storyboard in Resources */,
+				7307FC9B27F1ABE7005DE4B8 /* OpenSans-Italic-VariableFont_wdth,wght.ttf in Resources */,
 				73BFCFF5270C523900773A70 /* OpenSans-LightItalic.ttf in Resources */,
 				7320AA3226FC60B200FFF459 /* GoogleService-Info.plist in Resources */,
 				73BFCFFA270C523900773A70 /* OpenSans-Regular.ttf in Resources */,
 				73BFCFF0270C523900773A70 /* OpenSans-SemiBold.ttf in Resources */,
+				7307FC9A27F1ABE7005DE4B8 /* OpenSans-VariableFont_wdth,wght.ttf in Resources */,
 				733F920926C4EC36000F3ADF /* Assets.xcassets in Resources */,
 				733F920426C4EC35000F3ADF /* Main.storyboard in Resources */,
 				73BFCFFB270C523900773A70 /* OpenSans-BoldItalic.ttf in Resources */,
@@ -1219,10 +1270,12 @@
 				C4577C8A27A95604005DBB8C /* ApiVendorTimeOffResponseModel.swift in Sources */,
 				C41900BD2771A8570052F92E /* ApiVendorAppointmentTypeDataModel.swift in Sources */,
 				7311010E27D0B98600519888 /* StringTrimExtension.swift in Sources */,
+				7332D0ED2811758600AB40F6 /* ScannerStatusVC.swift in Sources */,
 				C4E4A5C327AA4DF500993A4B /* VendorTimeOffAddEditionVC.swift in Sources */,
 				733F920726C4EC35000F3ADF /* TotalVendor.xcdatamodeld in Sources */,
 				73924C7C26F31EBE001F622F /* ApiUpdateTokenResponseTable.swift in Sources */,
 				C4F1EBEE27799B5700B2448B /* ScheduleDetailsVC.swift in Sources */,
+				73CE641027F1753500A82685 /* SignUpVC.swift in Sources */,
 				733F923326C50950000F3ADF /* LoginViewController.swift in Sources */,
 				733F91FF26C4EC35000F3ADF /* SceneDelegate.swift in Sources */,
 				29C3917227846F8B00E1E055 /* ServiceVerificationURLViewController.swift in Sources */,
@@ -1268,9 +1321,12 @@
 				C41FD86C27A27E3A0019F4F1 /* OPICallingViewController.swift in Sources */,
 				D99CCB5A26CCC76A008FD9D5 /* EndPoints.swift in Sources */,
 				73AAD83B26FDDAB200CEFFAF /* AtCallManager.swift in Sources */,
+				7332D0E9281164E900AB40F6 /* VendorQRCodeScannerVC.swift in Sources */,
+				73826384280014CC00FD3695 /* ConstantString.swift in Sources */,
 				C4F5B6442747AC0300F834A2 /* NotificationsViewController.swift in Sources */,
 				29C3916D2784630200E1E055 /* VendorAcceptAndDeclineStatus.swift in Sources */,
 				C41900BC2771A8570052F92E /* ApiVendorTimeFinishResponseModel.swift in Sources */,
+				738263822800118C00FD3695 /* LoginViewModel.swift in Sources */,
 				C4219DCF2754EA090056AD76 /* NewSideMenuViewController.swift in Sources */,
 				73270A8E26C57DE400A6F649 /* ParticipantsCell.swift in Sources */,
 				C4337BEF27C9CBBC00FBFA0B /* ReimbursedDocumentsVC.swift in Sources */,
@@ -1464,7 +1520,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.71;
+				MARKETING_VERSION = 1.81;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TotalLanguage.Vendor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Total Language Vendor Dev";
@@ -1489,7 +1545,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.71;
+				MARKETING_VERSION = 1.81;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TotalLanguage.Vendor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Total Language Vendor Dev";

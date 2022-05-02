@@ -36,6 +36,7 @@ pod 'MagicTimer'
 pod 'SDWebImage'
 pod 'RSColourSlider'
 pod 'SteppableSlider'
+pod 'MercariQRScanner'
   target 'TotalVendorTests' do
     inherit! :search_paths
     # Pods for testing

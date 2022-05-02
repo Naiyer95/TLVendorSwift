@@ -50,7 +50,7 @@ class VendorTimeOffAddEditionVC: UIViewController {
     }
     
     @IBAction func startDateTimeBtnTapped(_ sender: Any) {
-        RPicker.selectDate(title: "Select Date & Time", cancelText: "Cancel", datePickerMode: .dateAndTime,didSelectDate: {[weak self] (selectedDate) in
+        RPicker.selectDate(title: "Select Date & Time", cancelText: "Cancel", datePickerMode: .dateAndTime,selectedDate: CommonClass.share.pickerDateAndTimeformate(dateAndTime: self.startDateTimeTF.text ?? ""),didSelectDate: {[weak self] (selectedDate) in
                         // TODO: Your implementation for date
                         self?.startDateTimeTF.text = selectedDate.dateString("MM/dd/yyyy hh:mm a")
                })
@@ -58,7 +58,10 @@ class VendorTimeOffAddEditionVC: UIViewController {
     
     
     @IBAction func endDateTimeBtnTapped(_ sender: Any) {
-        RPicker.selectDate(title: "Select Date & Time", cancelText: "Cancel", datePickerMode: .dateAndTime,didSelectDate: {[weak self] (selectedDate) in
+       // RPicker.selectDate(title: "Select Date & Time", cancelText: "Cancel", datePickerMode: .time,selectedDate: currentSelectedDate,didSelectDate: { (selectedDate) in
+        
+        
+        RPicker.selectDate(title: "Select Date & Time", cancelText: "Cancel", datePickerMode: .dateAndTime,selectedDate: CommonClass.share.pickerDateAndTimeformate(dateAndTime: self.endDateTimeTF.text ?? ""),didSelectDate: {[weak self] (selectedDate) in
                         // TODO: Your implementation for date
                         self?.endDateTimeTF.text = selectedDate.dateString("MM/dd/yyyy hh:mm a")
                     })
@@ -74,33 +77,40 @@ class VendorTimeOffAddEditionVC: UIViewController {
     @IBAction func submitBtnTapped(_ sender: Any) {
        
         guard let customerCompany = self.customerCoTF.text, !customerCompany.isEmpty else {
-            self.view.makeToast("Please enter valid Customer Company")
+            self.view.makeToast("Please enter valid Customer Company",position: .center)
             return
         }
         guard let vendorName = self.vendorNameTF.text, !vendorName.isEmpty else {
-            self.view.makeToast("Please enter valid Vendor Name")
+            self.view.makeToast("Please enter valid Vendor Name",position: .center)
             return
         }
         guard let eventNameTimeOff = self.timeOffEventTF.text, !eventNameTimeOff.isEmpty else {
-            self.view.makeToast("Please enter valid Time Off Event")
+            self.view.makeToast("Please enter valid Time Off Event",position: .center)
             return
         }
         guard let startDateTime = self.startDateTimeTF.text, !startDateTime.isEmpty else {
-            self.view.makeToast("Please enter valid Start Date Time")
+            self.view.makeToast("Please enter valid Start Date Time",position: .center)
             return
         }
         guard let endDateTime = self.endDateTimeTF.text, !endDateTime.isEmpty else {
-            self.view.makeToast("Please enter valid End Date Time")
+            self.view.makeToast("Please enter valid End Date Time",position: .center)
             return
         }
-        
-        
-        if startDateTime > endDateTime{
-            self.view.makeToast("Start time cannot be greater than End Time")
-        }else {
+       print("ssstime:",self.startDateTimeTF.text!,"eetime:",self.endDateTimeTF.text!)
+        if CommonClass.share.getDateAndTime(startDateAndTime: self.startDateTimeTF.text!, endDateAndTime: self.endDateTimeTF.text!) == true {
             self.updateVendorTimeOffData(eventName: eventNameTimeOff, fromDateTime: startDateTime, toDateTime: endDateTime)
+            
         }
+        else {
+            self.view.makeToast("Start time cannot be greater than End Time", position: .center)
+        }
+//        if startDateTime > endDateTime{
+//            self.view.makeToast("Start time cannot be greater than End Time")
+//        }else {
+//            self.updateVendorTimeOffData(eventName: eventNameTimeOff, fromDateTime: startDateTime, toDateTime: endDateTime)
+//        }
     }
+
     
     
 }
@@ -119,7 +129,7 @@ extension VendorTimeOffAddEditionVC{
                            "FromDateTime":fromDateTime,
                            "ToDateTime":toDateTime,
                            "Active":true,
-                           "CompanyName":companyID] as! [String : Any]
+                           "CompanyName":vendorID] as! [String : Any]
         let userID = userDefaults.value(forKey: UserDeafultsString.instance.UserID) ?? 0
         let urlString = "https://lsp.totallanguage.com/VendorManagement/VendorTimeOff/AddUpdateVendorTimeOff"
         print("API HIT DATA IS \(urlString) and parameter is \(parameterss)")
@@ -152,10 +162,7 @@ extension VendorTimeOffAddEditionVC{
                                 NotificationCenter.default.post(name: Notification.Name("refreshTimeOffData"), object: nil, userInfo: nil)
                             }
                             
-                            
-                          
-
-                        }else {
+                          }else {
                             self.view.makeToast(apiUpdateVenorTimeOffResponseModel?.vendorTimeOffs?.first?.message ?? "")
                             return
                         }

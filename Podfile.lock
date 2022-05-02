@@ -121,6 +121,7 @@ PODS:
   - JVFloatLabeledTextField (1.2.2)
   - MagicTimer (1.0.2)
   - MaterialTextField (1.0.1)
+  - MercariQRScanner (1.9.0)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -162,6 +163,7 @@ DEPENDENCIES:
   - JVFloatLabeledTextField
   - MagicTimer
   - MaterialTextField
+  - MercariQRScanner
   - NVActivityIndicatorView
   - RSColourSlider
   - SDWebImage
@@ -199,6 +201,7 @@ SPEC REPOS:
     - JVFloatLabeledTextField
     - MagicTimer
     - MaterialTextField
+    - MercariQRScanner
     - nanopb
     - NVActivityIndicatorView
     - PromisesObjC
@@ -237,6 +240,7 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: df48598472ee015701d509f43e59492a0d4ca208
   MagicTimer: 6a5b2cc15f7e66f98536966cb51876c6200e6d8b
   MaterialTextField: f1a0786588e4d3610cb9bb62d2adbe9777cebbf9
+  MercariQRScanner: e5aea873969af59b09b4cc411fc1c5b6293dba44
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
@@ -253,6 +257,6 @@ SPEC CHECKSUMS:
   "UIView+draggable": ddfbeb6bdfdeba63d9ccf32dc9be2b66cc589717
   VeloxDownloader: af352622cdc059830d94ca3ea013aaa3380db14d
 
-PODFILE CHECKSUM: 6db9416cc96a6a734d84c8e88dcd5a2d11f0f484
+PODFILE CHECKSUM: c078879adc932f5e053deabe6b41db10bc4b62e0
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

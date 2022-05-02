@@ -8,3 +8,8 @@
 import Foundation
 
 typealias JSONDictionary = [String:Any]
+struct Storyboard_name {
+    static let scanner = "scanner"
+    static let main = "Main"
+    
+}

@@ -146,8 +146,7 @@ extension TelephoneConferenceDetailsVC{
                     do {
                         let jsonDecoder = JSONDecoder()
                         self.apiOnsiteDetailsResponseModel = try jsonDecoder.decode(ApiOnsiteDetailsResponseModel.self, from: daata)
-                        print("Success")
-                        print("ApiGetVRIScheduleDataResponseMdel DATA IS \(self.apiOnsiteDetailsResponseModel)")
+                       
                         let apiData = self.apiOnsiteDetailsResponseModel?.appointmentInterpreterData?.first
                         if apiData?.serviceVerificationName != nil && apiData?.serviceVerificationName != "" {
                             self.fileName = (apiData?.serviceVerificationName!)!

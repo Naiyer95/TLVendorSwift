@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var voipRegistry: PKPushRegistry?
     var window: UIWindow?
     var callKitProvider: CXProvider?
+    private let loginVModels = LoginViewModel()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
@@ -228,27 +229,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                // let dict = convertToDictionary(text: payload!)
          
                 if type == "tokenupdate" {
-//                    if isLogoutPressed {
-//                        isLogoutPressed = false
-//                    }else {
-                        self.window?.makeToast("This customer already logged-in on another device")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change
-                                SwiftLoader.hide()
-                                UserDefaults.standard.setValue(false, forKey: "isLoggedIn")
-                                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-                                                         let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                                         let navigationController:UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
-                                                         let rootViewController:UIViewController = storyboard.instantiateViewController(withIdentifier:"InitialViewController") as! InitialViewController
-                                                         navigationController.viewControllers = [rootViewController]
-                                                         appDelegate.window!.rootViewController = navigationController
-                                                         appDelegate.window!.makeKeyAndVisible()
-                               // Code you want to be delayed
-//                            }
-                        }
-//                    }
-                    
-                }
+                  if Reachability.isConnectedToNetwork() {
+                      loginVModels.checkSingleSignin { success, err in
+                                 print("checkSingleSigninToUser--status:",success)
+                                
+                                     print("checkSingleSigninToUser--status2:",success)
+                                     DispatchQueue.main.async {
+                                         let refreshAlert = UIAlertController(title: "Someone Logged in", message: "The vendor already logged-in on another device.", preferredStyle: UIAlertController.Style.alert)
+                                         UserDefaults.standard.setValue(false, forKey: "isLoggedIn")
+                                         refreshAlert.addAction(UIAlertAction(title: "Login", style: .default, handler: { (action: UIAlertAction!) in
+                                             
+                                             let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                                                                      let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                                                      let navigationController:UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
+                                                                      let rootViewController:UIViewController = storyboard.instantiateViewController(withIdentifier:"InitialViewController") as! InitialViewController
+                                                                      navigationController.viewControllers = [rootViewController]
+                                                                      appDelegate.window!.rootViewController = navigationController
+                                                                      appDelegate.window!.makeKeyAndVisible()
+                                            }))
+
+                                         if let window = self.window, let rootViewController = window.rootViewController {
+                                             var currentController = rootViewController
+                                             while let presentedController = currentController.presentedViewController {
+                                                 currentController = presentedController
+                                             }
+                                             currentController.present(refreshAlert, animated: true, completion: nil)
+                                         } }
+
+                                        // present(refreshAlert, animated: true, completion: nil)
+                                     
+                               
+                             }
+                         }
+                         else {
+                             self.window?.makeToast(ConstantStr.noItnernet.val)
+                         }
+                    }
                 
              
             }

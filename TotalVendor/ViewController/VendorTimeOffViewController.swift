@@ -172,7 +172,7 @@ extension VendorTimeOffViewController:UITableViewDelegate,UITableViewDataSource{
 
         
         
-        let deleteAlert = UIAlertController(title: "Total Language", message: "Are you sure you want to delete the data?", preferredStyle: UIAlertController.Style.alert)
+        let deleteAlert = UIAlertController(title: "Total Language", message: "Are you sure you want to delete?", preferredStyle: UIAlertController.Style.alert)
                 
         deleteAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
                     print("Handle Ok logic here")
