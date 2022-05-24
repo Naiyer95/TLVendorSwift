@@ -534,18 +534,9 @@ extension BlockedAppointmentVirtualMeetingDetails{
                                     let itemA = ApiBlockedAppointmentResponseModelData(Address:Address,city:city,stateName:stateName,zipcode:zipcode,ClientCase: ClientCase, ReasonforBotch: ReasonforBotch, BookedBy: BookedBy, CaseNumber: CaseNumber, SpecialityName: SpecialityName, StartDateTimee: StartDateTimee, DepartmentName: DepartmentName, StartDateTime: StartDateTime, AppointmentStatusType: AppointmentStatusType, JobType: JobType, CompanyEmail: CompanyEmail, ProviderName: ProviderName, ServiceTypeName: ServiceTypeName, AppointmentTypeCode: AppointmentTypeCode, Interpretername: Interpretername, CAptDetails: CAptDetails, VenueAddress: VenueAddress, StarEndDateTime: StarEndDateTime, BookedOn: BookedOn, LanguageName: LanguageName, UpdatedOn: UpdatedOn, CScheduleNotes: CScheduleNotes, CancelledOn: CancelledOn, VenueName: VenueName, CompanyLogo: CompanyLogo, CFinancialNotes: CFinancialNotes, AppointmentID: AppointmentID, ConfirmedOn: ConfirmedOn, LanguageNameP: LanguageNameP, CompanyName: CompanyName, CText: CText, AppointmentStatusTypeID: AppointmentStatusTypeID, authcode: authcode, ConfirmedBy: ConfirmedBy, CLocation: CLocation, aPVenueID: aPVenueID, Gender: Gender, AppDate: AppDate, IsAssigned: IsAssigned, AppSTime: AppSTime, EndDateTime: EndDateTime, LoadedBy: LoadedBy, CancelledBy: CancelledBy, AcceptAndDeclineStatus: AcceptAndDeclineStatus, VendorTimezoneshort: VendorTimezoneshort, num_row: num_row, ClientName: ClientName, AppETime: AppETime, AppointmentType: AppointmentType, RequestedOn: RequestedOn, CompanyPhone: CompanyPhone, Interpreterid: Interpreterid, ISAUTHUSER: ISAUTHUSER)
                                     self.appointmentDataArray.append(itemA)
                                     
-                                    
-                                    
-                                    
-                                    
-                                    
-                                })
-                                
-                                print("mAIN DATE FROM API \(self.appointmentDataArray.first?.StartDateTime ?? "")")
-                                print("MAID END TIME FROM API IS \(self.appointmentDataArray.first?.EndDateTime ?? "")")
-                                
-                                
-                                
+                                    })
+                                self.mainStartTimeLbl.text = self.appointmentDataArray.first?.AppSTime ?? ""
+                                self.estEndTimeLbl.text = self.appointmentDataArray.first?.AppETime ?? ""
                                 self.mainDateLbl.text = convertTimeFormaterOnlyDate(self.appointmentDataArray.first?.StartDateTime ?? "")
                                 
                                 

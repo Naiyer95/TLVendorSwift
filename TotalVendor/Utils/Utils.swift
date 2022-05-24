@@ -101,7 +101,7 @@ func getHexaString(status: String) -> String? {
     case "lateCusomerReq":
         return "#acea31"
     default:
-        return "#000000"
+        return "#827c7c"
     }
 }
 class CommonClass: NSObject{

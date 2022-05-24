@@ -181,6 +181,7 @@ class NewSideMenuViewController: UIViewController {
     func hitLogoutApi(){
 //  UserDefaults.standard.setValue(token, forKey: "FCMToken")
         SwiftLoader.show(animated: true)
+        
         let deviceToken = UserDefaults.standard.value(forKey: "FCMToken")
         let updateVoipToken = UserDefaults.standard.value(forKey: "voipToken") ?? ""
         let url =  APIs.logoutApi
@@ -212,6 +213,7 @@ class NewSideMenuViewController: UIViewController {
 //                        guard let status = self.apiUpdateDeviceTokenResponseModel?.table?.first?.success else{ return }
                            SwiftLoader.hide()
                            if status == 1{
+                               UserDefaults.standard.setValue(false, forKey: "isLoggedIn")
                                print("----- HITBOOKINGSLOTSSSS SUCCESSFUL----- ")
                             
                                DispatchQueue.main.asyncAfter(deadline: .now()) { // Change

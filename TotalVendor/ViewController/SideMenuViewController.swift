@@ -30,7 +30,7 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
         self.dataSource.append(Item("VRI & OPI Logs"))
         self.dataSource.append(Item("Interpreter Call History"))
         self.dataSource.append(Item("Support"))
-        self.dataSource.append(Item("LogOut"))
+        self.dataSource.append(Item("Logout"))
         self.MenuTabelView.reloadData()
         
 

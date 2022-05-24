@@ -79,10 +79,10 @@ class CalendarViewController: UIViewController, UITableViewDelegate,UITableViewD
             }
         }
         // getServiceType()
-        print("companyname--------->",UserDefaults.standard.string(forKey: UserDeafultsString.instance.CompanyName))
+      
         let imageData = (userDefaults.value(forKey: UserDeafultsString.instance.CompanyLogo) ?? "")
         let finalData = "\(Live_BASE_URL)\(imageData)"
-        print("FINAL DATA IS \(finalData)")
+      
         if imageData as! String != "" {
             self.companyLogoIcon.sd_setImage(with: URL(string: finalData), completed: nil)
         }else {
@@ -1112,7 +1112,6 @@ extension CalendarViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let cell = dashboardTableView.cellForRow(at: IndexPath(row: indexPath.row, section: 0)) as! AppointmentTVCell
-        
         let sTime = cell.startDateLbl.text
         let eTime = cell.venuLbl.text
         if self.showAppointmentArr[indexPath.row]?.title?.replacingOccurrences(of: " ", with: "") == "B"{
@@ -1135,10 +1134,8 @@ extension CalendarViewController {
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)
             }else if self.showAppointmentArr[indexPath.row]?.appointmentType == "Virtual Meeting" || self.showAppointmentArr[indexPath.row]?.appointmentType == "VIRTUAL MEETING"{
-                
                 let vc =   self.storyboard?.instantiateViewController(withIdentifier: "BlockedAppointmentVirtualMeetingDetails") as! BlockedAppointmentVirtualMeetingDetails
                 vc.appointmentID = self.showAppointmentArr[indexPath.row]?.appointmentID ?? 0
-                
                 vc.startTime = sTime ?? ""
                 vc.endTime = eTime ?? ""
                 vc.modalPresentationStyle = .fullScreen
@@ -1153,7 +1150,6 @@ extension CalendarViewController {
                 vc.serviceType = self.showAppointmentArr[indexPath.row]?.appointmentType ?? "N/A"
                 self.navigationController?.pushViewController(vc, animated: true)
             }else if self.showAppointmentArr[indexPath.row]?.appointmentType == "Telephone Conference" || self.showAppointmentArr[indexPath.row]?.appointmentType == "TELEPHONE CONFERENCE" || self.showAppointmentArr[indexPath.row]?.appointmentType == "Virtual Meeting" || self.showAppointmentArr[indexPath.row]?.appointmentType == "VIRTUAL MEETING" {
-                
                 let vc = self.storyboard?.instantiateViewController(identifier: "TelephoneConferenceDetailsVC") as! TelephoneConferenceDetailsVC
                 vc.appointmentID = self.showAppointmentArr[indexPath.row]?.appointmentID ?? 0
                 vc.serviceType = self.showAppointmentArr[indexPath.row]?.appointmentType ?? "N/A"

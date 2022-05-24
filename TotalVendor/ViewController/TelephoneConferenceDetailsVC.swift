@@ -87,7 +87,7 @@ class TelephoneConferenceDetailsVC: UIViewController {
     }
     
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
-            print("labelTapped")
+           
         if let url = URL(string: self.urlToOpen) {
             UIApplication.shared.open(url)
         }
@@ -196,15 +196,6 @@ extension TelephoneConferenceDetailsVC{
                         let finalImportantString = NSMutableAttributedString()
                         finalImportantString.append(attriStringImportant)
                         finalImportantString.append(attriBasicImportant)
-                        
-                        
-                        
-   
-                        
-                        
-                        print("apiGetVRIScheduleDataResponseMdel \(self.apiOnsiteDetailsResponseModel)")
-
-                        
                         if self.serviceType == "Telephone Conference"{
                             self.notesView.visibility = .gone
                             self.conCallsView.visibility = .visible
@@ -226,11 +217,14 @@ extension TelephoneConferenceDetailsVC{
                         self.timeLbl.text = "\(self.convertTimeFormater(apiOnsiteDetailsResponseModel?.appointmentInterpreterData?.first?.startDateTimeTemp ??  "")) \(timeZone) - \(self.convertTimeFormater(apiOnsiteDetailsResponseModel?.appointmentInterpreterData?.first?.endDateTime ?? "")) (Estimated)"
                         
                         
-                        self.contactLbl.text = apiData?.providerName ?? "N/A"
-                        self.patientLbl.text = apiData?.caseNumber ?? "N/A"
-                        self.patientInitialLbl.text = apiData?.cPIntials ?? "N/A"
+                        self.contactLbl.text = (apiData?.providerName != "") ? apiData?.providerName : "N/A"
+                        self.contactLbl.removeEmptyString()
+                        self.patientLbl.text = (apiData?.caseNumber != "") ? apiData?.caseNumber : "N/A"
+                        self.patientLbl.removeEmptyString()
+                        self.patientInitialLbl.text = (apiData?.cPIntials != "") ? apiData?.cPIntials : "N/A"
+                        self.patientInitialLbl.removeEmptyString()
                         self.languageLbl.text = self.apiOnsiteDetailsResponseModel?.appointmentInterpreterData?.first?.languageName ?? "N/A"
-                        self.conCallsLabel.text = apiData?.location ?? ""
+                        self.conCallsLabel.text = (apiData?.location != "") ? apiData?.location : "N/A"
                         self.conCallsLabel.removeEmptyString()
                         
                         if apiData?.text == "" || apiData?.text == nil{

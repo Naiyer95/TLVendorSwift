@@ -226,11 +226,6 @@ class BlockedAppointmentVC: UIViewController {
             })
     }
     
-   
-    
-    
-    
-    
 }
 
 
@@ -517,6 +512,8 @@ extension BlockedAppointmentVC{
                                     
                                     
                                 })
+                                self.mainStartTimeLbl.text = self.appointmentDataArray.first?.AppSTime ?? ""
+                                self.estEndTimeLbl.text = self.appointmentDataArray.first?.AppETime ?? ""  
                                 
                                 print("mAIN DATE FROM API \(self.appointmentDataArray.first?.StartDateTime ?? "")")
                                 print("MAID END TIME FROM API IS \(self.appointmentDataArray.first?.EndDateTime ?? "")")
