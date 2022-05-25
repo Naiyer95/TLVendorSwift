@@ -63,6 +63,7 @@ class TelephoneConferenceDetailsVC: UIViewController {
     @IBOutlet weak var patientLbl: UILabel!
     @IBOutlet weak var contactLbl: UILabel!
     var serviceType = ""
+    var isfromfcm = false
     @IBOutlet weak var departmentLbl: UILabel!
     @IBOutlet weak var venueAddressLbl: UILabel!
     @IBOutlet weak var venueNameLbl: UILabel!
@@ -102,6 +103,9 @@ class TelephoneConferenceDetailsVC: UIViewController {
         }
 
     @IBAction func backBtnTapped(){
+        if isfromfcm {
+            self.dismiss(animated: true)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -360,8 +364,7 @@ extension TelephoneConferenceDetailsVC{
         SwiftLoader.show(animated: true)
         let urlString =   "https://lsp.totallanguage.com/Home/GetData?methodType=VendorAcceptAndDeclineStatus&NotoficationId=\(notificationID)&type=0&AppointmentID=\(appointmentID)&UserId=\(userID)&IsUpdated=&smsflog=4"
        
-        //\(date)"
-        print("url to get schedule declineRequestApi\(urlString)")
+       
         AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()
             .responseData(completionHandler: { [self] (response) in
@@ -369,18 +372,24 @@ extension TelephoneConferenceDetailsVC{
                 switch(response.result){
                     
                 case .success(_):
-                    print("Respose Success ")
+                  
                     guard let daata = response.data else { return }
                     do {
                         let jsonDecoder = JSONDecoder()
                         self.apiAcceptByVendorRequestDataModel = try jsonDecoder.decode(ApiAcceptByVendorRequestDataModel.self, from: daata)
-                        print("Success")
-                        print("ApiAcceptByVendorRequestDataModel DATA IS \(self.apiAcceptByVendorRequestDataModel)")
+                      
                         let showMessage = self.apiAcceptByVendorRequestDataModel?.vendorAcceptAndDeclineStatus?.first?.message ?? ""
                         let alert = UIAlertController(title: "Total Language", message: showMessage, preferredStyle: .alert)
                             
                              let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-                                self.navigationController?.popViewController(animated: true)
+                                 if self.isfromfcm {
+                                     self.dismiss(animated: true)
+                                 }
+                                 else {
+                                     self.navigationController?.popViewController(animated: true)
+                                 }
+                                
+                               
                              })
                              alert.addAction(ok)
                              DispatchQueue.main.async(execute: {
@@ -401,8 +410,7 @@ extension TelephoneConferenceDetailsVC{
         SwiftLoader.show(animated: true)
         let urlString =   "https://lsp.totallanguage.com/Home/GetData?methodType=VendorAcceptAndDeclineStatus&NotoficationId=\(notificationID)&type=1&AppointmentID=\(appointmentID)&UserId=\(userID)&IsUpdated=&smsflog=4"
        
-        //\(date)"
-        print("url to get schedule getOnsiteData\(urlString)")
+      
         AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()
             .responseData(completionHandler: { [self] (response) in
@@ -415,13 +423,18 @@ extension TelephoneConferenceDetailsVC{
                     do {
                         let jsonDecoder = JSONDecoder()
                         self.apiAcceptByVendorRequestDataModel = try jsonDecoder.decode(ApiAcceptByVendorRequestDataModel.self, from: daata)
-                        print("Success")
-                        print("ApiAcceptByVendorRequestDataModel DATA IS \(self.apiAcceptByVendorRequestDataModel)")
+                        
                         let showMessage = self.apiAcceptByVendorRequestDataModel?.vendorAcceptAndDeclineStatus?.first?.message ?? ""
                         let alert = UIAlertController(title: "Alert", message: showMessage, preferredStyle: .alert)
                             
                              let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-                                self.navigationController?.popViewController(animated: true)
+                                 if self.isfromfcm {
+                                     self.dismiss(animated: true)
+                                 }
+                                 else {
+                                     self.navigationController?.popViewController(animated: true)
+                                 }
+                                
                              })
                              alert.addAction(ok)
                              DispatchQueue.main.async(execute: {

@@ -1520,7 +1520,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.89;
+				MARKETING_VERSION = 1.90;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TotalLanguage.Vendor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Total VendorLive23May22";
@@ -1545,7 +1545,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.89;
+				MARKETING_VERSION = 1.90;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TotalLanguage.Vendor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Total VendorLive23May22";

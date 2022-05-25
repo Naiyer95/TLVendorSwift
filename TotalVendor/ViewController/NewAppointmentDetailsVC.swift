@@ -52,6 +52,7 @@ class NewAppointmentDetailsVC: UIViewController {
     @IBOutlet weak var locationView: UIView!
     var companyName = ""
     var appointmentID = 0
+    var isfromfcm = false
     var serviceType = ""
     var apiOnsiteDetailsResponseModel : ApiOnsiteDetailsResponseModel?
     var appointmentType = ""
@@ -107,7 +108,13 @@ class NewAppointmentDetailsVC: UIViewController {
     }
     
     @IBAction func backBtnTapped(){
-        self.navigationController?.popViewController(animated: true)
+        if isfromfcm {
+           dismiss(animated: true)
+        }
+        else {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     func previewFiles(fileName : String ,serviceType:String , completionHandler : @escaping(Bool? , String?) -> ()){
@@ -157,7 +164,13 @@ class NewAppointmentDetailsVC: UIViewController {
                         let alert = UIAlertController(title: "Confirmation", message: showMessage, preferredStyle: .alert)
                         
                         let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-                            self.navigationController?.popViewController(animated: true)
+                            if self.isfromfcm{
+                                self.dismiss(animated: true)
+                            }
+                            else {
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                           
                         })
                         alert.addAction(ok)
                         DispatchQueue.main.async(execute: {
@@ -198,7 +211,13 @@ class NewAppointmentDetailsVC: UIViewController {
                         let alert = UIAlertController(title: "Alert", message: showMessage, preferredStyle: .alert)
                         
                         let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
-                            self.navigationController?.popViewController(animated: true)
+                            if self.isfromfcm{
+                                self.dismiss(animated: true)
+                            }
+                            else {
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                            
                         })
                         alert.addAction(ok)
                         DispatchQueue.main.async(execute: {

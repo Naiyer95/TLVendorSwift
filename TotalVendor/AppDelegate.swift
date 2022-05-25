@@ -116,20 +116,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.window?.makeKeyAndVisible()
             
         }else {
-            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+           // let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
             let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let navigationController:UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
             let rootViewController:UIViewController = storyboard.instantiateViewController(withIdentifier:"InitialViewController") as! InitialViewController
             navigationController.viewControllers = [rootViewController]
-            appDelegate.window!.rootViewController = navigationController
-            appDelegate.window!.makeKeyAndVisible()
+           // appDelegate.window!.rootViewController = navigationController
+           // appDelegate.window!.makeKeyAndVisible()
+            self.window?.rootViewController = navigationController
+            self.window?.makeKeyAndVisible()
         }
         
-        let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
+      //  let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
         
         //register the notification settings
-        application.registerUserNotificationSettings(notificationSettings)
         
+        //application.registerUserNotificationSettings(notificationSettings)
+        requestNotificationAuthorization(application: application)
         //output what state the app is in. This will be used to see when the app is started in the background
         NSLog("app launched with state \(application.applicationState)")
         
@@ -148,14 +151,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //        }
         
         
-        var DeviceToken =  UIDevice.current.identifierForVendor!.uuidString
-        UserDefaults.standard.setValue(DeviceToken, forKey: "deviceToken")
-        
+        let deviceToken =  UIDevice.current.identifierForVendor!.uuidString
+        UserDefaults.standard.setValue(deviceToken, forKey: "deviceToken")
+        application.registerForRemoteNotifications()
         // Override point for customization after application launch.
         return true
         
     }
+    // PushNotification Permission
     
+    func requestNotificationAuthorization(application: UIApplication) {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in
+                // print("options!!!=")
+            })
+        }
+        else {
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
     
     @objc func AppTime(){
         if screenTime >= 0 {
@@ -203,9 +222,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if type == "tokenupdate"{
             handleNotification(userInfo: userInfo)
         }
-        //handleNotification(userInfo: userInfo)
-        // you can customize the notification presentation options. Below code will show notification banner as well as play a sound. If you want to add a badge too, add .badge in the array.
-        completionHandler([.alert,.sound])
+        completionHandler([.alert,.badge,.sound])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
@@ -213,20 +230,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         // Print full message.
-        //  print("tap on on forground app",userInfo)
+    print("tap on on forground app",userInfo, "state::", UIApplication.shared.applicationState)
        // print("receive on tapped-3")
         //let type =  userInfo[AnyHashable("type")] as? String
         //  print("TYPE IS \(type)")
-        handleNotification(userInfo: userInfo)
-        completionHandler()
+        let state = UIApplication.shared.applicationState
+        if state == .inactive {
+            self.handleNotification(userInfo: userInfo)
+            completionHandler()
+        }
+        else if state == .background {
+            self.handleNotification(userInfo: userInfo)
+            completionHandler()
+        }
+        else {
+            self.handleNotification(userInfo: userInfo)
+            completionHandler()
+            
+        }
+       
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print("receive on tapped-2")
-        
+       
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("receive on tapped-1")
+        print("application.applicationState-->",application.applicationState.rawValue)
+        if application.applicationState == .inactive {
+           
+            completionHandler(UIBackgroundFetchResult.newData)
+        }
+        else if application.applicationState == .background {
+         
+            completionHandler(UIBackgroundFetchResult.newData)
+        }
+        else {
+         
+            completionHandler(UIBackgroundFetchResult.newData)
+        }
         // print("userInfo-------------------->",userInfo.values, "Info:", userInfo )
         
     }
@@ -241,6 +284,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let payload = userInfo[AnyHashable("payload")] as? String
       print("type:-->", type, "jt:", jt, "attt:", appointmentType)
       print("userInfo---->", userInfo)
+        let storyboard = UIStoryboard(name: Storyboard_name.main, bundle: nil)
         if type != nil {
             // let dict = convertToDictionary(text: payload!)
             switch type?.replacingOccurrences(of:" ", with: "") {
@@ -275,43 +319,153 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 break
             case "R", "RC":
+              //changes
+               
+                if  appointmentType?.replacingOccurrences(of:" ", with: "") == "1"{
+//                    let vc = storyboard.instantiateViewController(identifier: controller_Name.newAptD) as! NewAppointmentDetailsVC
+//                 vc.appointmentID = Int(ids!)!
+//                 vc.serviceType = "ONSITE INTERPRTATION"
+//                 vc.isfromfcm = true
+//                 let navController = UINavigationController(rootViewController: vc)
+//                    navController.isNavigationBarHidden = true
+//                   // navController.modalPresentationStyle = .fullScreen
+//
+//
+//                    window?.rootViewController = navController
+//                    window?.makeKeyAndVisible()
+                    let vc = storyboard.instantiateViewController(identifier: controller_Name.newAptD) as! NewAppointmentDetailsVC
+                    vc.appointmentID = Int(ids!)!
+                    vc.serviceType = "ONSITE INTERPRTATION"
+                    vc.isfromfcm = true
+                    if let window = self.window, let rootViewController = window.rootViewController {
+                        var currentController = rootViewController
+                        while let presentedController = currentController.presentedViewController {
+                            currentController = presentedController
+                        }
+                        vc.modalPresentationStyle = .fullScreen
+                        currentController.present(vc, animated: true, completion: nil)
+                    }
+                    
+                }
+                else if appointmentType?.replacingOccurrences(of:" ", with: "") == "2" {
+                    let vc = storyboard.instantiateViewController(identifier: controller_Name.telephoneAptD) as! TelephoneConferenceDetailsVC
+                 vc.appointmentID = Int(ids!)!
+                 vc.serviceType = "Telephone Conference"
+                 vc.isfromfcm = true
+                    if let window = self.window, let rootViewController = window.rootViewController {
+                        var currentController = rootViewController
+                        while let presentedController = currentController.presentedViewController {
+                            currentController = presentedController
+                        }
+                        vc.modalPresentationStyle = .fullScreen
+                        currentController.present(vc, animated: true, completion: nil)
+                    }
+                }
+                else if appointmentType?.replacingOccurrences(of:" ", with: "") == "13" {
+                    let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.telephoneAptD) as! TelephoneConferenceDetailsVC
+                        vc.appointmentID = Int(ids!)!
+                        vc.serviceType = "Virtual Meeting"
+                        vc.isfromfcm = true
+                        if let window = self.window, let rootViewController = window.rootViewController {
+                            var currentController = rootViewController
+                            while let presentedController = currentController.presentedViewController {
+                                currentController = presentedController
+                            }
+                            vc.modalPresentationStyle = .fullScreen
+                            currentController.present(vc, animated: true, completion: nil)
+                        }
+                   
+                }
                 
-                if let rootViewController = self.window!.rootViewController as? UINavigationController {
+                //changes end
+                
+              /*  if let rootViewController = self.window!.rootViewController as? UINavigationController {
                     let storyboard = UIStoryboard(name: Storyboard_name.main, bundle: nil)
                     
                     
                     if  appointmentType?.replacingOccurrences(of: " ", with: "") == "1"{
-                        if let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.newAptD) as? NewAppointmentDetailsVC {
-                            vc.appointmentID = Int(ids!)!
-                            vc.serviceType = "ONSITE INTERPRTATION"
-                            
-                            rootViewController.pushViewController(vc, animated: true)
+                        DispatchQueue.main.async {
+                            if let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.newAptD) as? NewAppointmentDetailsVC {
+                                vc.appointmentID = Int(ids!)!
+                                vc.serviceType = "ONSITE INTERPRTATION"
+                                
+                                rootViewController.pushViewController(vc, animated: true)
+                            }
                         }
+                        
                     }
                     else if appointmentType?.replacingOccurrences(of: " ", with: "") == "2" {
+                        DispatchQueue.main.async {
                         if let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.telephoneAptD) as? TelephoneConferenceDetailsVC {
                             vc.appointmentID = Int(ids!)!
                             vc.serviceType = "TELEPHONE CONFERENCE"
                             
                             rootViewController.pushViewController(vc, animated: true)
-                        }
+                        }}
                     }
                     else if appointmentType?.replacingOccurrences(of: " ", with: "") == "13" {
+                        DispatchQueue.main.async {
                         if let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.telephoneAptD) as? TelephoneConferenceDetailsVC {
                             vc.appointmentID = Int(ids!)!
                             vc.serviceType = "VIRTUAL MEETING"
                             
                             rootViewController.pushViewController(vc, animated: true)
-                        }
+                        }}
                     }
                     
                     
-                }
+                }*/
                 
                 break
             case "B":
-                let storyboard = UIStoryboard.init(name: Storyboard_name.main, bundle: nil)
-                if appointmentType?.replacingOccurrences(of: " ", with: "") == "1" {
+                //changes start
+                
+                //changes end blocked
+                if  appointmentType?.replacingOccurrences(of:" ", with: "") == "1"{
+                    let vc = storyboard.instantiateViewController(identifier: controller_Name.blockedAptD) as! BlockedAppointmentVC
+                    vc.appointmentID = Int(ids!)!
+                    vc.startTime = ""
+                    vc.endTime = ""
+                    if let window = self.window, let rootViewController = window.rootViewController {
+                        var currentController = rootViewController
+                        while let presentedController = currentController.presentedViewController {
+                            currentController = presentedController
+                        }
+                        vc.modalPresentationStyle = .fullScreen
+                        currentController.present(vc, animated: true, completion: nil)
+                    }
+                }
+                else if appointmentType?.replacingOccurrences(of:" ", with: "") == "2"{
+                    let vc = storyboard.instantiateViewController(identifier: controller_Name.telephoneBD) as! BlockedAppointmentTelephonicConferenceDetails
+                    vc.appointmentID = Int(ids!)!
+                    vc.startTime = ""
+                    vc.endTime = ""
+                    if let window = self.window, let rootViewController = window.rootViewController {
+                        var currentController = rootViewController
+                        while let presentedController = currentController.presentedViewController {
+                            currentController = presentedController
+                        }
+                        vc.modalPresentationStyle = .fullScreen
+                        currentController.present(vc, animated: true, completion: nil)
+                    }
+                }
+                else if appointmentType?.replacingOccurrences(of:" ", with: "") == "13"{
+                    let vc = storyboard.instantiateViewController(identifier: controller_Name.virtualBD) as! BlockedAppointmentVirtualMeetingDetails
+                    vc.appointmentID = Int(ids!)!
+                    vc.startTime = ""
+                    vc.endTime = ""
+                    if let window = self.window, let rootViewController = window.rootViewController {
+                        var currentController = rootViewController
+                        while let presentedController = currentController.presentedViewController {
+                            currentController = presentedController
+                        }
+                        vc.modalPresentationStyle = .fullScreen
+                        currentController.present(vc, animated: true, completion: nil)
+                    }
+                }
+                //end
+               /* if appointmentType?.replacingOccurrences(of:" ", with: "") == "1" {
+                    DispatchQueue.main.async {
                     let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.blockedAptD) as! BlockedAppointmentVC
                     
                     vc.appointmentID = Int(ids!)!
@@ -326,8 +480,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         vc.modalPresentationStyle = .fullScreen
                         currentController.present(vc, animated: true, completion: nil)
                     }
+                    }
                 }
-                else if appointmentType?.replacingOccurrences(of: " ", with: "") == "2"{
+                else if appointmentType?.replacingOccurrences(of:" ", with: "") == "2"{
+                    DispatchQueue.main.async {
                     let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.telephoneBD) as! BlockedAppointmentTelephonicConferenceDetails
                     vc.startTime = ""
                     vc.endTime = ""
@@ -340,9 +496,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         }
                         vc.modalPresentationStyle = .fullScreen
                         currentController.present(vc, animated: true, completion: nil)
-                    }
+                    }}
                 }
-                else if appointmentType?.replacingOccurrences(of: " ", with: "") == "13"{
+                else if appointmentType?.replacingOccurrences(of:" ", with: "") == "13"{
+                    DispatchQueue.main.async {
                     let vc = storyboard.instantiateViewController(withIdentifier: controller_Name.virtualBD) as! BlockedAppointmentVirtualMeetingDetails
                     vc.startTime = ""
                     vc.endTime = ""
@@ -355,9 +512,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         }
                         vc.modalPresentationStyle = .fullScreen
                         currentController.present(vc, animated: true, completion: nil)
-                    }
+                    }}
                 }
-                
+                */
                 break
                 
             default:

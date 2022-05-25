@@ -1149,7 +1149,9 @@ extension CalendarViewController {
                 vc.appointmentID = self.showAppointmentArr[indexPath.row]?.appointmentID ?? 0
                 vc.serviceType = self.showAppointmentArr[indexPath.row]?.appointmentType ?? "N/A"
                 self.navigationController?.pushViewController(vc, animated: true)
-            }else if self.showAppointmentArr[indexPath.row]?.appointmentType == "Telephone Conference" || self.showAppointmentArr[indexPath.row]?.appointmentType == "TELEPHONE CONFERENCE" || self.showAppointmentArr[indexPath.row]?.appointmentType == "Virtual Meeting" || self.showAppointmentArr[indexPath.row]?.appointmentType == "VIRTUAL MEETING" {
+            }
+            
+            else if self.showAppointmentArr[indexPath.row]?.appointmentType == "Telephone Conference" || self.showAppointmentArr[indexPath.row]?.appointmentType == "TELEPHONE CONFERENCE" || self.showAppointmentArr[indexPath.row]?.appointmentType == "Virtual Meeting" || self.showAppointmentArr[indexPath.row]?.appointmentType == "VIRTUAL MEETING" {
                 let vc = self.storyboard?.instantiateViewController(identifier: "TelephoneConferenceDetailsVC") as! TelephoneConferenceDetailsVC
                 vc.appointmentID = self.showAppointmentArr[indexPath.row]?.appointmentID ?? 0
                 vc.serviceType = self.showAppointmentArr[indexPath.row]?.appointmentType ?? "N/A"
