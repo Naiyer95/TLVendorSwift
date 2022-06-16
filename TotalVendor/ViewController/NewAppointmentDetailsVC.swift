@@ -80,7 +80,7 @@ class NewAppointmentDetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.servicetypeView.visibility = .gone
+       // self.servicetypeView.visibility = .gone
         // importantNoteLbl.text = "*** Important: Please note that an interpreter cannot cancel/return an appointment without speaking to someone at '\(companyName)' directly. Not via email nor voicemail. All returns are to be discussed with '\(companyName)'"
     }
     
