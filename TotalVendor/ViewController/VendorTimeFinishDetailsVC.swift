@@ -876,11 +876,11 @@ class VendorFinishDetailDocumentCell:UITableViewCell{
             docImage.image = UIImage(systemName:"xls")
             docImage.tintColor = .black
         case ".png","png":
-            //            docImage.sd_setImage(with: URL(string: imageURL), completed: nil)
+            // docImage.sd_setImage(with: URL(string: imageURL), completed: nil)
             docImage.image = UIImage(systemName:"doc.fill")
             docImage.tintColor = .black
         case ".jpeg","jpeg":
-            //            docImage.sd_setImage(with: URL(string: imageURL), completed: nil)
+            //  docImage.sd_setImage(with: URL(string: imageURL), completed: nil)
             docImage.image = UIImage(systemName:"doc.fill")
             docImage.tintColor = .black
         case ".gif","gif":

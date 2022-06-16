@@ -16,7 +16,7 @@ class ServiceVerificationURLViewController: UIViewController, WKNavigationDelega
     var isFromRegular = true
     var fromUploadedDocuments=false
     var fileName = ""
-    
+    var isfromfcm = false
     
     @IBOutlet weak var serviceWebView: WKWebView!
     override func viewDidLoad() {
@@ -29,7 +29,6 @@ class ServiceVerificationURLViewController: UIViewController, WKNavigationDelega
         }
         serviceFormDownloadOutlet.isHidden = true
        
-       // self.tabBarController?.tabBar.isHidden = true
         
         self.configUI()
         serviceWebView.allowsBackForwardNavigationGestures = true
@@ -43,12 +42,12 @@ class ServiceVerificationURLViewController: UIViewController, WKNavigationDelega
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         SwiftLoader.show(animated: true)
-            print("didStartProvisionalNavigation")
+          
         }
 
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
             SwiftLoader.hide()
-            print("ERROR IN LOADING WEB VIEW IS \(error.localizedDescription)")
+           
             self.view.makeToast("Unable to load document")
         }
 
@@ -68,14 +67,14 @@ class ServiceVerificationURLViewController: UIViewController, WKNavigationDelega
             urlReq.cachePolicy = .returnCacheDataElseLoad
             self.serviceWebView.load(urlReq)
         }
-        
-        
-        
-    }
+      }
  
     
     @IBAction func actionBackbtn(_ sender: UIButton) {
-        if isFromRegular{
+        if isfromfcm {
+            self.dismiss(animated: true)
+        }
+        else if isFromRegular{
             self.navigationController?.popViewController(animated: true)
         }
         else
@@ -111,7 +110,7 @@ let downloadURL  = URL(string: serviceURL)
 
                     // to check if it exists before downloading it
                     if FileManager.default.fileExists(atPath: destinationUrl.path) {
-                        print("The file already exists at path")
+                       // print("The file already exists at path")
                         DispatchQueue.main.async {
                             let excelSheet = UIActivityViewController(activityItems: [destinationUrl as Any], applicationActivities: nil)
                             self.present(excelSheet,animated: true,completion: nil)

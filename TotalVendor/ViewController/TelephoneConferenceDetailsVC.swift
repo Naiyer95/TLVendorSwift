@@ -83,6 +83,7 @@ class TelephoneConferenceDetailsVC: UIViewController {
 
        // self.setupLabelTap()
         let userId = userDefaults.string(forKey: UserDeafultsString.instance.UserID) ?? ""
+        
         self.getOnsiteData(customerId: userId)
      
     }
@@ -126,7 +127,16 @@ class TelephoneConferenceDetailsVC: UIViewController {
             vc.isFromRegular=true
             vc.serviceURL = fileNameNew ?? ""
             vc.fileName = filename
-            self.navigationController?.pushViewController(vc, animated: true)
+            vc.isfromfcm = self.isfromfcm
+            print("URL DATA IS \(fileNameNew)")
+            if self.isfromfcm {
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+            }
+            else {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+          
         }
     }
 }
@@ -158,12 +168,9 @@ extension TelephoneConferenceDetailsVC{
                         else {
                             self.fileName = ""
                         }
-                       
-                        
-                        if apiData?.text?.replacingOccurrences(of: "\\", with: "").isValidURL ?? false{
+                       if apiData?.text?.replacingOccurrences(of: "\\", with: "").isValidURL ?? false{
 
-                            
-                            linkLbl.text = apiData?.text
+                           linkLbl.text = apiData?.text
                             linkLbl.handleURLTap { url in
                                 
                                 CommonClass.share.activeLinkCall(activeURL: url)

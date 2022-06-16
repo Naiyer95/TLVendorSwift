@@ -57,16 +57,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared().shouldShowToolbarPlaceholder = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         Messaging.messaging().isAutoInitEnabled = true
-        let date = Date()
-        
-        // Create Date Formatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy h:mm a"
-        // Convert Date to String
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        let abc = dateFormatter.string(from: date)
-        
-        print("CURRENT DATE TIME IS \(abc)")
+//        let date = Date()
+//
+//        // Create Date Formatter
+//        let dateFormatter = DateFormatter()
+//    dateFormatter.dateFormat = "dd/MM/yyyy h:mm a"
+//        // Convert Date to String
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        let abc = dateFormatter.string(from: date)
+//
+       // print("CURRENT DATE TIME IS \(abc)")
         
         self.voipRegistration()
         
@@ -126,29 +126,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.window?.rootViewController = navigationController
             self.window?.makeKeyAndVisible()
         }
-        
-      //  let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-        
-        //register the notification settings
-        
-        //application.registerUserNotificationSettings(notificationSettings)
-        requestNotificationAuthorization(application: application)
-        //output what state the app is in. This will be used to see when the app is started in the background
+       
         NSLog("app launched with state \(application.applicationState)")
-        
-        
-        //        timerForApp = Timer.scheduledTimer(timeInterval: 01.0, target: self, selector: #selector(AppTime), userInfo: nil, repeats: true)
-        
-        
-        //        Messaging.messaging().token { token, error in
-        //            if let error = error {
-        //                print("Error fetching FCM registration token: \(error)")
-        //            } else if let token = token {
-        //                print("FCM registration token: \(token)")
-        //               UserDefaults.standard.setValue(token, forKey: "FCMToken")
-        //                let fcmRegTokenMessage  = "Remote FCM registration token: \(token)"
-        //            }
-        //        }
         
         
         let deviceToken =  UIDevice.current.identifierForVendor!.uuidString
@@ -256,8 +235,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("receive on tapped-1")
-        print("application.applicationState-->",application.applicationState.rawValue)
+       
         if application.applicationState == .inactive {
            
             completionHandler(UIBackgroundFetchResult.newData)
@@ -276,14 +254,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     func handleNotification(userInfo:[AnyHashable:Any]){
-        //  let noti = NotificationData.getNotificationData(userInfo)
+      
         let type =  userInfo[AnyHashable("type")] as? String
         let jt =  userInfo[AnyHashable("jt")] as? String
         let appointmentType = userInfo[AnyHashable("at")] as? String
         let ids =  userInfo[AnyHashable("id")] as? String
-        let payload = userInfo[AnyHashable("payload")] as? String
-      print("type:-->", type, "jt:", jt, "attt:", appointmentType)
-      print("userInfo---->", userInfo)
+      //  let payload = userInfo[AnyHashable("payload")] as? String
+     // print("type:-->", type, "jt:", jt, "attt:", appointmentType)
+    //  print("userInfo---->", userInfo)
         let storyboard = UIStoryboard(name: Storyboard_name.main, bundle: nil)
         if type != nil {
             // let dict = convertToDictionary(text: payload!)
@@ -322,17 +300,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
               //changes
                
                 if  appointmentType?.replacingOccurrences(of:" ", with: "") == "1"{
-//                    let vc = storyboard.instantiateViewController(identifier: controller_Name.newAptD) as! NewAppointmentDetailsVC
-//                 vc.appointmentID = Int(ids!)!
-//                 vc.serviceType = "ONSITE INTERPRTATION"
-//                 vc.isfromfcm = true
-//                 let navController = UINavigationController(rootViewController: vc)
-//                    navController.isNavigationBarHidden = true
-//                   // navController.modalPresentationStyle = .fullScreen
-//
-//
-//                    window?.rootViewController = navController
-//                    window?.makeKeyAndVisible()
+
                     let vc = storyboard.instantiateViewController(identifier: controller_Name.newAptD) as! NewAppointmentDetailsVC
                     vc.appointmentID = Int(ids!)!
                     vc.serviceType = "ONSITE INTERPRTATION"
@@ -807,16 +775,16 @@ extension AppDelegate: PKPushRegistryDelegate {
     // MARK: - SendBirdCalls - Registering push token.
     func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
         //        UserDefaults.standard.voipPushToken =
-        let newVoipToken = pushCredentials.token.description.replacingOccurrences(of: "<", with: "")
-        let abc = newVoipToken.replacingOccurrences(of: ">", with: "")
-        let test = abc.replacingOccurrences(of: " ", with: "")
-        
-        let deviceTokennn = pushCredentials.token.map { String(format: "%02x", $0) }.joined()
-        print("New decoded token is \(deviceTokennn)")
-        print("Push token is \(pushCredentials.token.toHexString())")
-        let voipNew = pushCredentials.token.toHexString()
-        print("New Voip Token is \(voipNew)")
-        UserDefaults.standard.setValue(voipNew, forKey: "voipToken")
+        //let newVoipToken = pushCredentials.token.description.replacingOccurrences(of: "<", with: "")
+       // let abc = newVoipToken.replacingOccurrences(of: ">", with: "")
+        //let test = abc.replacingOccurrences(of: " ", with: "")
+        let voipStr = TokenConverter.token(from: pushCredentials.token)
+       // let deviceTokennn = pushCredentials.token.map { String(format: "%02x", $0) }.joined()
+       // print("New decoded token is \(deviceTokennn)")
+      //  print("Push token is \(pushCredentials.token.toHexString())")
+        //let voipNew = pushCredentials.token.toHexString()
+        print("New Voip Token is \(voipStr)")
+        UserDefaults.standard.setValue(voipStr, forKey: "voipToken")
         //        SendBirdCall.registerVoIPPush(token: pushCredentials.token, unique: true) { error in
         //            guard error == nil else { return }
         //        }

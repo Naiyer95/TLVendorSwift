@@ -33,3 +33,14 @@ struct NotificationData {
     }
     
 }
+class TokenConverter {
+
+    static func token(from data: Data) -> String {
+
+        let tokenParts = data.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+
+        return tokenParts.joined()
+    }
+}

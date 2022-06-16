@@ -102,8 +102,16 @@ class NewAppointmentDetailsVC: UIViewController {
             vc.isFromRegular=true
             vc.serviceURL = fileNameNew ?? ""
             vc.fileName = filename
-            print("URL DATA IS \(fileNameNew)")
-            self.navigationController?.pushViewController(vc, animated: true)
+            vc.isfromfcm = self.isfromfcm
+         
+            if self.isfromfcm {
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+            }
+            else {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+           
         }
     }
     
@@ -128,11 +136,11 @@ class NewAppointmentDetailsVC: UIViewController {
                 switch(response.result){
                     
                 case .success(_):
-                    print("Respose Success ")
+                    
                     guard let daata = response.data else { return }
                     print(String(data: daata, encoding: .utf8)!)
                     let fileURL = String(data: daata, encoding: .utf8)!
-                    print("file path  is ",fileURL)
+                   
                     completionHandler(true , fileURL)
                     
                 case .failure(_):
@@ -153,13 +161,13 @@ class NewAppointmentDetailsVC: UIViewController {
                 SwiftLoader.hide()
                 switch(response.result){
                 case .success(_):
-                    print("Respose Success ")
+                   
                     guard let daata = response.data else { return }
                     do {
                         let jsonDecoder = JSONDecoder()
                         self.apiAcceptByVendorRequestDataModel = try jsonDecoder.decode(ApiAcceptByVendorRequestDataModel.self, from: daata)
-                        print("Success")
-                        print("ApiAcceptByVendorRequestDataModel DATA IS \(self.apiAcceptByVendorRequestDataModel)")
+                       
+                       
                         let showMessage = self.apiAcceptByVendorRequestDataModel?.vendorAcceptAndDeclineStatus?.first?.message ?? ""
                         let alert = UIAlertController(title: "Confirmation", message: showMessage, preferredStyle: .alert)
                         
@@ -276,10 +284,10 @@ extension NewAppointmentDetailsVC{
                         finalImportantString.append(attriStringImportant)
                         finalImportantString.append(attriBasicImportant)
                        
-                        print("ApiGetVRIScheduleDataResponseMdel DATA IS \(self.apiOnsiteDetailsResponseModel)")
+                        
                         let apiData = self.apiOnsiteDetailsResponseModel?.appointmentInterpreterData?.first
                         self.fileName = apiData?.serviceVerificationName ?? ""
-                        print("apiGetVRIScheduleDataResponseMdel    \(self.apiOnsiteDetailsResponseModel)")
+                       
                         if (apiData?.appointmentStatusID == "1" || apiData?.appointmentStatusID == "7" || apiData?.appointmentStatusID == "8") && (apiData?.interpreterID == Int(customerId)){
                             self.locationView.visibility = .visible
                             self.serviceVerificationview.visibility = .visible
@@ -384,12 +392,7 @@ extension NewAppointmentDetailsVC{
                         for string in stringInputArr {
                             stringNeed += String(string.first!)
                         }
-                        
-                        
-                        
                         self.dateLbl.text = "\(sDate) (\(stringNeed)) - \(eTime) (Estimated)"
-                        
-                        
                         if (apiData?.appointmentStatusID == "2")&&(apiData?.acceptAndDeclineStatus == nil)&&(apiData?.isAssigned == nil)&&(apiData?.interpreterID == nil || apiData?.interpreterID == 0){
                             
                             self.statusLbl.text = "Not Booked"
@@ -446,24 +449,7 @@ extension NewAppointmentDetailsVC{
                         if apiData?.serviceVerificationName == nil || apiData?.serviceVerificationName == ""{
                             self.serviceVerificationview.visibility = .gone
                         }
-                        
-                        
-//                        else if (apiData?.appointmentStatusID == "2" || apiData?.appointmentStatusID == "11") && (apiData?.acceptAndDeclineStatus != nil) {
-//                            self.titleLbl.text = "Notice of Change"
-//                            self.AppointmentInfoLbl.text = "\(companyName)has sent you INQUIRY. Please check your availability and select the option below to indicate if you are available or have to decline the work."
-//                            self.AppointmentInfoLbl.isHidden=false
-//                        }
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    }
+      }
                     catch
                     {
                         print("error block forgot password " ,error)
