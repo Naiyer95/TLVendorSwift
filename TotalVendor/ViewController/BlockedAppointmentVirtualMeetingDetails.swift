@@ -15,57 +15,132 @@ class BlockedAppointmentVirtualTVC:UITableViewCell{
     
     @IBOutlet weak var locationLbl: ActiveLabel!
     @IBOutlet weak var locationView: UIView!
-    @IBOutlet weak var genderView: UIView!
-    @IBOutlet weak var genderLbl: UILabel!
-    @IBOutlet weak var departmentView: UIView!
+  
     @IBOutlet weak var jobTypeLbl: UILabel!
-    @IBOutlet weak var departmentLbl: UILabel!
-    @IBOutlet weak var venueNameView: UIView!
-    @IBOutlet weak var venueNameLbl: UILabel!
-    @IBOutlet weak var venueAddressLbl: UILabel!
-    @IBOutlet weak var departmentLblNew: UILabel!
-    @IBOutlet weak var venueAddressView: UIView!
+    
     @IBOutlet weak var collapseBtnOutlet: UIButton!
     @IBOutlet weak var appointmentDetailsUIView: UIView!
     @IBOutlet weak var appointmentLbl: UILabel!
     @IBOutlet weak var arrowOutlet: UIImageView!
-    @IBOutlet weak var interpreterNameView: UIView!
+   
     @IBOutlet weak var interpreterNameLbl: UILabel!
-    @IBOutlet weak var authenticationCodeView: UIView!
+    
     @IBOutlet weak var authenticationCodeLbl: UILabel!
-    @IBOutlet weak var serviceTypeVie: UIView!
-    @IBOutlet weak var serviceTypeLbl: UILabel!
-    @IBOutlet weak var dateTimeView: UIView!
+  @IBOutlet weak var dateTimeLbl: UILabel!
     
-    @IBOutlet weak var dateTimeLbl: UILabel!
-    
-    @IBOutlet weak var contactView: UIView!
     
     @IBOutlet weak var contactLbl: UILabel!
-    
-    @IBOutlet weak var specialityView: UIView!
-    
-    @IBOutlet weak var specialityLbl: UILabel!
-    
-    @IBOutlet weak var casePatientView: UIView!
-    
     @IBOutlet weak var casePatientLbl: UILabel!
-    
-    @IBOutlet weak var cpInitialView: UIView!
-    
     @IBOutlet weak var cpInitialsLbl: UILabel!
     
-    @IBOutlet weak var languageView: UIView!
     
     @IBOutlet weak var languageLbl: UILabel!
-    
-    @IBOutlet weak var descriptionView: UIView!
-    
     @IBOutlet weak var descriptionLbl: UILabel!
-    @IBOutlet weak var notesView: UIView!
     @IBOutlet weak var specialRequestsLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
-    @IBOutlet weak var statusView: UIView!
+    
+    
+    //Start title
+    
+    @IBOutlet weak var casePatientInitailTitle: UILabel!
+    @IBOutlet weak var casePatientTitle: UILabel!
+    @IBOutlet weak var contactTitle: UILabel!
+    @IBOutlet weak var locationTitle: UILabel!
+    //end title
+    func configure(apiData:ApiBlockedAppointmentResponseModelData,isBooked: Bool){
+        if isBooked {
+            casePatientInitailTitle.text = "Case/Patient Initial"
+            casePatientTitle.text = "Case/Patient#"
+            contactTitle.text = "Contact"
+            locationTitle.text = "Details-links, ID and Pass Codes"
+            let fName = userDefaults.value(forKey: UserDeafultsString.instance.fullName) as? String ?? ""
+            
+            interpreterNameLbl.text = fName  //apiData.Interpretername ?? "N/A"//fName as? String ?? ""//apiData.Interpretername ?? "N/A"
+           interpreterNameLbl.removeEmptyString()
+    //        cell.locationLbl.text = apiData.CText?.replacingOccurrences(of: "\\", with: "") ?? "N/A"
+    //        cell.locationLbl.removeEmptyString()
+            
+            if apiData.CText?.replacingOccurrences(of: "\\", with: "").isValidURL ?? false{
+                locationLbl.text = apiData.CText
+                locationLbl.handleURLTap { url in
+                    CommonClass.share.activeLinkCall(activeURL: url)
+                }
+                
+                 }else {
+                        locationLbl.text = apiData.CText
+                       locationLbl.removeEmptyString()
+
+                    }
+           
+            
+            authenticationCodeLbl.text = apiData.authcode ?? "N/A"
+            authenticationCodeLbl.removeEmptyString()
+    
+            contactLbl.text = apiData.ProviderName ?? "N/A"
+            contactLbl.removeEmptyString()
+    
+            specialRequestsLbl.text = apiData.CLocation ?? "N/A"
+            specialRequestsLbl.removeEmptyString()
+            jobTypeLbl.text = apiData.JobType ?? "N/A"
+            jobTypeLbl.removeEmptyString()
+            
+            statusLbl.text = apiData.AppointmentStatusType ?? "N/A"
+            statusLbl.removeEmptyString()
+            languageLbl.text = apiData.LanguageName ?? "N/A"
+            languageLbl.removeEmptyString()
+            descriptionLbl.text = apiData.CAptDetails ?? "N/A"
+            descriptionLbl.removeEmptyString()
+           
+            dateTimeLbl.text = apiData.StarEndDateTime ?? "N/A"
+            dateTimeLbl.removeEmptyString()
+        }
+        else {
+            casePatientInitailTitle.text = ""
+            casePatientTitle.text = ""
+            contactTitle.text = ""
+            locationTitle.text = ""
+            let fName = userDefaults.value(forKey: UserDeafultsString.instance.fullName) as? String ?? ""
+            
+            interpreterNameLbl.text = fName
+           interpreterNameLbl.removeEmptyString()
+    
+            
+//            if apiData.CText?.replacingOccurrences(of: "\\", with: "").isValidURL ?? false{
+//                locationLbl.text = apiData.CText
+//                locationLbl.handleURLTap { url in
+//                    CommonClass.share.activeLinkCall(activeURL: url)
+//                }
+//
+//                 }else {
+//                        locationLbl.text = apiData.CText
+//                       locationLbl.removeEmptyString()
+//
+//                    }
+           
+            
+            authenticationCodeLbl.text = apiData.authcode ?? "N/A"
+            authenticationCodeLbl.removeEmptyString()
+    
+           // contactLbl.text = apiData.ProviderName ?? "N/A"
+           // contactLbl.removeEmptyString()
+    
+            specialRequestsLbl.text = apiData.CLocation ?? "N/A"
+            specialRequestsLbl.removeEmptyString()
+            jobTypeLbl.text = apiData.JobType ?? "N/A"
+            jobTypeLbl.removeEmptyString()
+            
+            statusLbl.text = apiData.AppointmentStatusType ?? "N/A"
+            statusLbl.removeEmptyString()
+            languageLbl.text = apiData.LanguageName ?? "N/A"
+            languageLbl.removeEmptyString()
+            descriptionLbl.text = apiData.CAptDetails ?? "N/A"
+            descriptionLbl.removeEmptyString()
+          
+            dateTimeLbl.text = apiData.StarEndDateTime ?? "N/A"
+            dateTimeLbl.removeEmptyString()
+            
+        }
+    }
     override  func awakeFromNib() {
         //        self.appointmentDetailsUIView.visibility = .gone
     }
@@ -78,14 +153,13 @@ class BlockedAppointmentVirtualMeetingDetails: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var appInfoLbl: UILabel!
-    @IBOutlet weak var locationLbl: UILabel!
-    @IBOutlet weak var locationView: UIView!
+   
     @IBOutlet weak var mainDateLbl: UILabel!
     var companyName = ""
     var apiAcceptByVendorRequestDataModel:ApiAcceptByVendorRequestDataModel?
     
     @IBOutlet weak var mainStartTimeLbl: UILabel!
-    @IBOutlet weak var startTimeLbl: UILabel!
+   
     @IBOutlet weak var estEndTimeLbl: UILabel!
     var firstTime = true
     var apiEncryptedDataResponse : ApiEncryptedDataResponse?
@@ -149,22 +223,18 @@ class BlockedAppointmentVirtualMeetingDetails: UIViewController {
     func declineRequestApi(notificationID : String , appointmentID : String , userID : String){
         SwiftLoader.show(animated: true)
         let urlString =   "https://lsp.totallanguage.com/Home/GetData?methodType=VendorAcceptAndDeclineStatus&NotoficationId=\(notificationID)&type=0&AppointmentID=\(appointmentID)&UserId=\(userID)&IsUpdated=&smsflog=4"
-       
-        //\(date)"
-        print("url to get schedule declineRequestApi\(urlString)")
-        AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
+       AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()
             .responseData(completionHandler: { [self] (response) in
                 SwiftLoader.hide()
                 switch(response.result){
                 case .success(_):
-                    print("Respose Success ")
+                   
                     guard let daata = response.data else { return }
                     do {
                         let jsonDecoder = JSONDecoder()
                         self.apiAcceptByVendorRequestDataModel = try jsonDecoder.decode(ApiAcceptByVendorRequestDataModel.self, from: daata)
-                        print("Success")
-                        print("ApiAcceptByVendorRequestDataModel DATA IS \(self.apiAcceptByVendorRequestDataModel)")
+                        
                         let showMessage = self.apiAcceptByVendorRequestDataModel?.vendorAcceptAndDeclineStatus?.first?.message ?? ""
                         let alert = UIAlertController(title: "Confirmation", message: showMessage, preferredStyle: .alert)
                             
@@ -190,8 +260,7 @@ class BlockedAppointmentVirtualMeetingDetails: UIViewController {
         SwiftLoader.show(animated: true)
         let urlString =   "https://lsp.totallanguage.com/Home/GetData?methodType=VendorAcceptAndDeclineStatus&NotoficationId=\(notificationID)&type=1&AppointmentID=\(appointmentID)&UserId=\(userID)&IsUpdated=&smsflog=4"
        
-        //\(date)"
-        print("url to get schedule getOnsiteData\(urlString)")
+      
         AF.request(urlString, method: .get , parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .validate()
             .responseData(completionHandler: { [self] (response) in
@@ -199,14 +268,12 @@ class BlockedAppointmentVirtualMeetingDetails: UIViewController {
                 switch(response.result){
                     
                 case .success(_):
-                    print("Respose Success ")
+                   
                     guard let daata = response.data else { return }
                     do {
                         let jsonDecoder = JSONDecoder()
                         self.apiAcceptByVendorRequestDataModel = try jsonDecoder.decode(ApiAcceptByVendorRequestDataModel.self, from: daata)
-                        print("Success")
-                        print("ApiAcceptByVendorRequestDataModel DATA IS \(self.apiAcceptByVendorRequestDataModel)")
-                        let showMessage = self.apiAcceptByVendorRequestDataModel?.vendorAcceptAndDeclineStatus?.first?.message ?? ""
+                       let showMessage = self.apiAcceptByVendorRequestDataModel?.vendorAcceptAndDeclineStatus?.first?.message ?? ""
                         let alert = UIAlertController(title: "Alert", message: showMessage, preferredStyle: .alert)
                             
                              let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
@@ -274,52 +341,26 @@ extension BlockedAppointmentVirtualMeetingDetails:UITableViewDelegate,UITableVie
                 
                 cell.statusLbl.text = "Booked"
                 self.serviceVerificationFormView.visibility = .visible
-                cell.interpreterNameView.isHidden = false
-                cell.authenticationCodeView.isHidden = false
-    //            cell.serviceTypeVie.isHidden = false
-                cell.dateTimeView.isHidden = false
-    //            cell.venueNameView.isHidden = false
-                cell.locationView.isHidden = false
-    //            cell.venueAddressView.isHidden = false
-    //            cell.venueAddressLbl.text = "\(apiData.VenueAddress ?? "")"
-    //            cell.venueAddressLbl.removeEmptyString()
-    //            cell.departmentView.isHidden = false
-                cell.contactView.isHidden = false
-    //            cell.specialityView.isHidden = false
-                cell.casePatientView.isHidden = false
-                cell.cpInitialView.isHidden = false
-                cell.languageView.isHidden = false
-                cell.descriptionView.isHidden = false
-                cell.notesView.isHidden = false
-                cell.statusView.isHidden = false
-      
+
+                cell.configure(apiData: apiData, isBooked: true)
               
                 self.acceptAndDeclineStackView.isHidden = true
+                self.hitApiEncryptValue(value: apiData.CaseNumber ?? "") { plant, initialText in
+                    cell.casePatientLbl.text = initialText
+                    cell.casePatientLbl.removeEmptyString()
+                }
+                
+                self.hitApiEncryptValue(value: apiData.ClientCase ?? "") { plant, initialText in
+                    cell.cpInitialsLbl.text = initialText ?? "N/A"
+                    cell.cpInitialsLbl.removeEmptyString()
+                }
+                cell.configure(apiData: apiData, isBooked: true)
             }else
             
             {
                 
                 self.serviceVerificationFormView.visibility = .gone
-                cell.interpreterNameView.isHidden = false
-                cell.authenticationCodeView.isHidden = false
-    //            cell.serviceTypeVie.isHidden = true
-                cell.dateTimeView.isHidden = false
-                cell.locationView.isHidden = true
-    //            cell.venueNameView.isHidden = false
-    //            cell.venueAddressView.isHidden = false
-    //            cell.venueAddressLbl.text = "\(apiData.city ?? ""), \(apiData.stateName ?? "")"
-    //            cell.departmentView.isHidden = true
-                cell.contactView.isHidden = true
-    //            cell.specialityView.isHidden = true
-                cell.casePatientView.isHidden = true
-                cell.cpInitialView.isHidden = true
-                cell.languageView.isHidden = false
-                cell.descriptionView.isHidden = false
-                cell.notesView.isHidden = false
-                cell.statusView.isHidden = false
-                
-                
-                if (apiData.AppointmentStatusTypeID == 2 || apiData.AppointmentStatusTypeID == 11) && (apiData.AcceptAndDeclineStatus == -1){
+  if (apiData.AppointmentStatusTypeID == 2 || apiData.AppointmentStatusTypeID == 11) && (apiData.AcceptAndDeclineStatus == -1){
                     self.appInfoLbl.isHidden = false
                                            self.titleLabel.text = "Availability Inquiry"
                     self.appInfoLbl.text = "\(self.companyName) has sent you an INQUIRY. Please check your availability and select the option below to indicate if you are available or have to decline the work."
@@ -328,11 +369,6 @@ extension BlockedAppointmentVirtualMeetingDetails:UITableViewDelegate,UITableVie
                     self.titleLabel.text = "\(apiData.AppointmentStatusType ?? "") Appointment"
                     self.appInfoLbl.isHidden = true
                 }
-                
-                
-                
-                
-                
                 if (apiData.AppointmentStatusTypeID == 2) && (apiData.AcceptAndDeclineStatus == -1) && (apiData.IsAssigned == -1) && (apiData.Interpreterid == 0){
                     cell.statusLbl.text = "Not Booked"
                     self.acceptAndDeclineStackView.isHidden = false
@@ -343,69 +379,12 @@ extension BlockedAppointmentVirtualMeetingDetails:UITableViewDelegate,UITableVie
                     cell.statusLbl.text = "Unavailable Appointment"
                     self.acceptAndDeclineStackView.isHidden = true
                 }
-            }
-            let fName = userDefaults.value(forKey: UserDeafultsString.instance.fullName) as? String ?? ""
-            
-            cell.interpreterNameLbl.text = fName  //apiData.Interpretername ?? "N/A"//fName as? String ?? ""//apiData.Interpretername ?? "N/A"
-            cell.interpreterNameLbl.removeEmptyString()
-    //        cell.locationLbl.text = apiData.CText?.replacingOccurrences(of: "\\", with: "") ?? "N/A"
-    //        cell.locationLbl.removeEmptyString()
-            
-            if apiData.CText?.replacingOccurrences(of: "\\", with: "").isValidURL ?? false{
-                cell.locationLbl.text = apiData.CText
-                cell.locationLbl.handleURLTap { url in
-                    CommonClass.share.activeLinkCall(activeURL: url)
-                }
-                
-                 }else {
-                        cell.locationLbl.text = apiData.CText
-                        cell.locationLbl.removeEmptyString()
-
-                    }
-           
-            
-            cell.authenticationCodeLbl.text = apiData.authcode ?? "N/A"
-            cell.authenticationCodeLbl.removeEmptyString()
-    //        cell.serviceTypeLbl.text = apiData.ServiceTypeName ?? "N/A"
-    //        cell.serviceTypeLbl.removeEmptyString()
-    //        cell.venueNameLbl.text = apiData.VenueName ?? "N/A"
-    //        cell.venueNameLbl.removeEmptyString()
-    //        cell.departmentLbl.text = apiData.DepartmentName ?? "N/A"
-    //        cell.departmentLbl.removeEmptyString()
-            cell.contactLbl.text = apiData.ProviderName ?? "N/A"
-            cell.contactLbl.removeEmptyString()
-    //        cell.specialityLbl.text = apiData.SpecialityName ?? "N/A"
-    //        cell.specialityLbl.removeEmptyString()
-            cell.specialRequestsLbl.text = apiData.CLocation ?? "N/A"
-            cell.specialRequestsLbl.removeEmptyString()
-            cell.jobTypeLbl.text = apiData.JobType ?? "N/A"
-            cell.jobTypeLbl.removeEmptyString()
-            self.hitApiEncryptValue(value: apiData.CaseNumber ?? "") { plant, initialText in
-                cell.casePatientLbl.text = initialText
-                cell.casePatientLbl.removeEmptyString()
+                cell.configure(apiData: apiData, isBooked: false)
             }
             
-            self.hitApiEncryptValue(value: apiData.ClientCase ?? "") { plant, initialText in
-                cell.cpInitialsLbl.text = initialText ?? "N/A"
-                cell.cpInitialsLbl.removeEmptyString()
-            }
-            cell.statusLbl.text = apiData.AppointmentStatusType ?? "N/A"
-            cell.statusLbl.removeEmptyString()
-            cell.languageLbl.text = apiData.LanguageName ?? "N/A"
-            cell.languageLbl.removeEmptyString()
-            cell.descriptionLbl.text = apiData.CAptDetails ?? "N/A"
-            cell.descriptionLbl.removeEmptyString()
-            cell.statusView.visibility = .visible
-            cell.dateTimeLbl.text = apiData.StarEndDateTime ?? "N/A"
-            cell.dateTimeLbl.removeEmptyString()
             cell.collapseBtnOutlet.tag = indexPath.row
             cell.collapseBtnOutlet.addTarget(self, action: #selector(self.btnAction(_:)), for: .touchUpInside)
   
-        
-       
-
-        
-        
         
         
 //        if (apiData.AppointmentStatusTypeID == 2 || apiData.AppointmentStatusTypeID == 11) && (apiData.AcceptAndDeclineStatus != -1) {

@@ -66,6 +66,127 @@ class BlockedAppointmentTVC:UITableViewCell{
     @IBOutlet weak var specialRequestsLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
     @IBOutlet weak var statusView: UIView!
+    // details titles:
+    //start
+    
+    @IBOutlet weak var jobTypeTitle: UILabel!
+    @IBOutlet weak var interpreterNameTitle: UILabel!
+    @IBOutlet weak var authenticationCodeTitle: UILabel!
+    @IBOutlet weak var dateTimeTitle: UILabel!
+    @IBOutlet weak var venueNameTitle: UILabel!
+    @IBOutlet weak var venueAddressTitle: UILabel!
+    @IBOutlet weak var DepartmentTitle: UILabel!
+    @IBOutlet weak var contactTitle: UILabel!
+    @IBOutlet weak var specialityTitle: UILabel!
+    @IBOutlet weak var casepatientTitle: UILabel!
+    @IBOutlet weak var casePateintInitialTitle: UILabel!
+    @IBOutlet weak var languageTitle: UILabel!
+    @IBOutlet weak var appointmentDescriptionTitle: UILabel!
+    @IBOutlet weak var notesTitle: UILabel!
+    @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var statusTitle: UILabel!
+    //end
+    func configure(apiData:ApiBlockedAppointmentResponseModelData,isBooked:Bool){
+        if isBooked {
+          jobTypeTitle.text = "Job Type"
+           interpreterNameTitle.text = "Interpreter Name"
+           dateTimeTitle.text = "Date/Time"
+            venueNameTitle.text = "Venue Name"
+           venueAddressTitle.text = "Venue Address"
+            DepartmentTitle.text = "Department" //Department
+            contactTitle.text = "Contact"
+            specialityTitle.text = "Specialty"
+           casepatientTitle.text = "Case/Patient#"
+            casePateintInitialTitle.text = "Case/Patient Initial"
+            languageTitle.text = "Language"
+            appointmentDescriptionTitle.text = "Appointment Description"
+            notesTitle.text = "Notes"
+           locationTitle.text = "Location"
+            statusTitle.text = "Status"
+            interpreterNameLbl.text = apiData.Interpretername ?? "N/A"//fName as? String ?? ""//apiData.Interpretername ?? "N/A"
+          interpreterNameLbl.removeEmptyString()
+           locationLbl.text = apiData.CLocation ?? "N/A"
+            locationLbl.removeEmptyString()
+            authenticationCodeLbl.text = apiData.authcode ?? "N/A"
+           authenticationCodeLbl.removeEmptyString()
+    //        cell.serviceTypeLbl.text = apiData.ServiceTypeName ?? "N/A"
+    //        cell.serviceTypeLbl.removeEmptyString()
+            venueNameLbl.text = apiData.VenueName ?? "N/A"
+           venueNameLbl.removeEmptyString()
+            departmentLbl.text = apiData.DepartmentName ?? "N/A"
+            departmentLbl.removeEmptyString()
+            contactLbl.text = apiData.ProviderName ?? "N/A"
+            contactLbl.removeEmptyString()
+            specialityLbl.text = apiData.SpecialityName ?? "N/A"
+          specialityLbl.removeEmptyString()
+            specialRequestsLbl.text = apiData.CText ?? "N/A"
+            specialRequestsLbl.removeEmptyString()
+           jobTypeLbl.text = apiData.JobType ?? "N/A"
+           jobTypeLbl.removeEmptyString()
+           
+           statusLbl.text = apiData.AppointmentStatusType ?? "N/A"
+          statusLbl.removeEmptyString()
+            languageLbl.text = apiData.LanguageName ?? "N/A"
+            languageLbl.removeEmptyString()
+            descriptionLbl.text = apiData.CAptDetails ?? "N/A"
+           descriptionLbl.removeEmptyString()
+            //cell.statusView.visibility = .visible
+           //statusView.isHidden = false
+            dateTimeLbl.text = apiData.StarEndDateTime ?? "N/A"
+            dateTimeLbl.removeEmptyString()
+          
+        }
+        else {
+            jobTypeTitle.text = "Job Type"
+            interpreterNameTitle.text = "Interpreter Name"
+          dateTimeTitle.text = "Date/Time"
+           venueNameTitle.text = "Venue Name"
+          venueAddressTitle.text = "Venue Address"
+            DepartmentTitle.text = "" //Department
+           contactTitle.text = ""//"Contact"
+           specialityTitle.text = ""// "Specialty"
+           casepatientTitle.text = ""//"Case/Patient#"
+            casePateintInitialTitle.text = ""//"Case/Patient Initial"
+            languageTitle.text = "Language"
+          appointmentDescriptionTitle.text = "Appointment Description"
+           notesTitle.text = "Notes"
+           locationTitle.text = "" // "Location"
+          statusTitle.text = "Status"
+            interpreterNameLbl.text = apiData.Interpretername ?? "N/A"//fName as? String ?? ""//apiData.Interpretername ?? "N/A"
+          interpreterNameLbl.removeEmptyString()
+           //locationLbl.text = apiData.CLocation ?? "N/A"
+           // locationLbl.removeEmptyString()
+            authenticationCodeLbl.text = apiData.authcode ?? "N/A"
+           authenticationCodeLbl.removeEmptyString()
+    //        cell.serviceTypeLbl.text = apiData.ServiceTypeName ?? "N/A"
+    //        cell.serviceTypeLbl.removeEmptyString()
+            venueNameLbl.text = apiData.VenueName ?? "N/A"
+           venueNameLbl.removeEmptyString()
+           // departmentLbl.text = apiData.DepartmentName ?? "N/A"
+         //   departmentLbl.removeEmptyString()
+           // contactLbl.text = apiData.ProviderName ?? "N/A"
+         //   contactLbl.removeEmptyString()
+           // specialityLbl.text = apiData.SpecialityName ?? "N/A"
+          //specialityLbl.removeEmptyString()
+            specialRequestsLbl.text = apiData.CText ?? "N/A"
+            specialRequestsLbl.removeEmptyString()
+           jobTypeLbl.text = apiData.JobType ?? "N/A"
+           jobTypeLbl.removeEmptyString()
+           
+           statusLbl.text = apiData.AppointmentStatusType ?? "N/A"
+          statusLbl.removeEmptyString()
+            languageLbl.text = apiData.LanguageName ?? "N/A"
+            languageLbl.removeEmptyString()
+            descriptionLbl.text = apiData.CAptDetails ?? "N/A"
+           descriptionLbl.removeEmptyString()
+            //cell.statusView.visibility = .visible
+         //  statusView.isHidden = false
+            dateTimeLbl.text = apiData.StarEndDateTime ?? "N/A"
+            dateTimeLbl.removeEmptyString()
+        }
+        
+    }
+    
     override  func awakeFromNib() {
         //        self.appointmentDetailsUIView.visibility = .gone
     }
@@ -98,14 +219,23 @@ class BlockedAppointmentVC: UIViewController {
     @IBOutlet weak var importantNoteLbl: UILabel!
     @IBOutlet weak var importantNoteView: UIView!
     var collapseStatus = [false,false,false,false,false,false,false,false,false,false]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         companyName = (UserDefaults.standard.value(forKey: UserDeafultsString.instance.CompanyName) as? String) ?? ""
         self.mainStartTimeLbl.text = startTime
         self.estEndTimeLbl.text = endTime
         self.getAppointmentDetailsApi()
-        appointmentListTV.delegate=self
-        appointmentListTV.dataSource=self
+        appointmentListTV.rowHeight = UITableView.automaticDimension
+        appointmentListTV.estimatedRowHeight = 400
+        appointmentListTV.delegate = self
+        appointmentListTV.dataSource = self
+        
+        //changing
+       
+        
+        //end
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -239,7 +369,8 @@ extension BlockedAppointmentVC:UITableViewDelegate,UITableViewDataSource{
         let cell = appointmentListTV.dequeueReusableCell(withIdentifier: "BlockedAppointmentTVC", for: indexPath) as! BlockedAppointmentTVC
         cell.appointmentLbl.text = "Appointment \(indexPath.row + 1)"
         if firstTime && indexPath.row == 0{
-            cell.appointmentDetailsUIView.visibility = .visible
+           cell.appointmentDetailsUIView.visibility = .visible
+           // cell.appointmentDetailsUIView.isHidden = false
             self.appointmentDataArray[indexPath.row].collapsedStatus = false
             firstTime = false
             cell.arrowOutlet.image = UIImage(systemName: "chevron.up")
@@ -249,10 +380,12 @@ extension BlockedAppointmentVC:UITableViewDelegate,UITableViewDataSource{
             if self.appointmentDataArray[indexPath.row].collapsedStatus == true{
                 
                 cell.appointmentDetailsUIView.visibility = .gone
+               // cell.appointmentDetailsUIView.isHidden = true
                 cell.arrowOutlet.image = UIImage(systemName: "chevron.down")
                 
             }else {
-                cell.appointmentDetailsUIView.visibility = .visible
+               cell.appointmentDetailsUIView.visibility = .visible
+               // cell.appointmentDetailsUIView.isHidden = false
                 cell.arrowOutlet.image = UIImage(systemName: "chevron.up")
             }
         }
@@ -262,54 +395,73 @@ extension BlockedAppointmentVC:UITableViewDelegate,UITableViewDataSource{
         let userId = userDefaults.string(forKey: UserDeafultsString.instance.UserID) ?? ""
         
         if (apiData.AppointmentStatusTypeID == 1 || apiData.AppointmentStatusTypeID == 7 || apiData.AppointmentStatusTypeID == 8) && (apiData.Interpreterid == Int(userId)){
-            //                            BOOKED APPOINTMENT AND WHOLE DATA AND SERVICE VERIFICATION FORM NEEDS TO BE SHOWN
+            //  BOOKED APPOINTMENT AND WHOLE DATA AND SERVICE VERIFICATION FORM NEEDS TO BE SHOWN
+            //added all titles
+            
+            //ended titles
+            
             
             cell.statusLbl.text = "Booked"
             
-            self.serviceVerificationFormView.visibility = .visible
+          self.serviceVerificationFormView.visibility = .visible
+          //  self.serviceVerificationFormView.isHidden = false
             
-            cell.interpreterNameView.isHidden = false
-            cell.authenticationCodeView.isHidden = false
+           // cell.interpreterNameView.isHidden = false
+            //cell.authenticationCodeView.isHidden = false
 //            cell.serviceTypeVie.isHidden = false
-            cell.dateTimeView.isHidden = false
-            cell.venueNameView.isHidden = false
-            cell.locationView.isHidden = false
-            cell.venueAddressView.isHidden = false
+           // cell.dateTimeView.isHidden = false
+           // cell.venueNameView.isHidden = false
+           // cell.locationView.isHidden = false
+           // cell.venueAddressView.isHidden = false
             cell.venueAddressLbl.text = "\(apiData.VenueAddress ?? "")"
             cell.venueAddressLbl.removeEmptyString()
-            cell.departmentView.isHidden = false
-            cell.contactView.isHidden = false
-            cell.specialityView.isHidden = false
-            cell.casePatientView.isHidden = false
-            cell.cpInitialView.isHidden = false
-            cell.languageView.isHidden = false
-            cell.descriptionView.isHidden = false
-            cell.notesView.isHidden = false
-            cell.statusView.isHidden = false
+            //cell.departmentView.isHidden = false
+           // cell.contactView.isHidden = false
+            //cell.specialityView.isHidden = false
+           // cell.casePatientView.isHidden = false
+           // cell.cpInitialView.isHidden = false
+           // cell.languageView.isHidden = false
+           // cell.descriptionView.isHidden = false
+           // cell.notesView.isHidden = false
+           // cell.statusView.isHidden = false
 
             self.acceptAndDeclineStackView.isHidden = true
+            cell.configure(apiData: apiData, isBooked: true)
+            hitApiEncryptValue(value: apiData.CaseNumber ?? "") { plant, initialText in
+                 cell.casePatientLbl.text = initialText
+                 cell.casePatientLbl.removeEmptyString()
+             }
+             
+            hitApiEncryptValue(value: apiData.ClientCase ?? "") { plant, initialText in
+                 cell.cpInitialsLbl.text = initialText ?? "N/A"
+                 cell.cpInitialsLbl.removeEmptyString()
+             }
+            
         }else
         
         {
             
-            self.serviceVerificationFormView.visibility = .gone
-            cell.interpreterNameView.isHidden = false
-            cell.authenticationCodeView.isHidden = false
+            
+          //  self.serviceVerificationFormView.visibility = .gone
+            self.serviceVerificationFormView.isHidden = true
+            //cell.interpreterNameView.isHidden = false
+           // cell.authenticationCodeView.isHidden = false
 //            cell.serviceTypeVie.isHidden = true
-            cell.dateTimeView.isHidden = false
-            cell.locationView.isHidden = true
-            cell.venueNameView.isHidden = false
-            cell.venueAddressView.isHidden = false
+           // cell.dateTimeView.isHidden = false
+           // cell.locationView.isHidden = true
+            
+          //  cell.venueNameView.isHidden = false
+          //  cell.venueAddressView.isHidden = false
             cell.venueAddressLbl.text = "\(apiData.city ?? ""), \(apiData.stateName ?? "")"
-            cell.departmentView.isHidden = true
-            cell.contactView.isHidden = true
-            cell.specialityView.isHidden = true
-            cell.casePatientView.isHidden = true
-            cell.cpInitialView.isHidden = true
-            cell.languageView.isHidden = false
-            cell.descriptionView.isHidden = false
-            cell.notesView.isHidden = false
-            cell.statusView.isHidden = false
+           // cell.departmentView.isHidden = true
+           // cell.contactView.isHidden = true
+           // cell.specialityView.isHidden = true
+           // cell.casePatientView.isHidden = true
+           // cell.cpInitialView.isHidden = true
+           // cell.languageView.isHidden = false
+           // cell.descriptionView.isHidden = false
+           // cell.notesView.isHidden = false
+           // cell.statusView.isHidden = false
             
             
             if (apiData.AppointmentStatusTypeID == 2 || apiData.AppointmentStatusTypeID == 11) && (apiData.AcceptAndDeclineStatus == -1){
@@ -318,20 +470,11 @@ extension BlockedAppointmentVC:UITableViewDelegate,UITableViewDataSource{
                                        self.appInfoLbl.text = "\(companyName) has sent you an INQUIRY. Please check your availability and select the option below to indicate if you are available or have to decline the work."
                                        
             }
-//            else if (apiData.AppointmentStatusTypeID == 2 || apiData.AppointmentStatusTypeID == 11) && (apiData.AcceptAndDeclineStatus != -1) {
-//                self.titleLabel.text = "Notice of Change"
-//                self.appInfoLbl.isHidden = false
-//                self.appInfoLbl.text = "\(companyName) has sent you an INQUIRY. Please check your availability and select the option below to indicate if you are available or have to decline the work."
-//            }
+
             else {
                 self.titleLabel.text = "\(apiData.AppointmentStatusType ?? "") Appointment"
                 self.appInfoLbl.isHidden = true
             }
-            
-            
-            
-            
-            
             if (apiData.AppointmentStatusTypeID == 2) && (apiData.AcceptAndDeclineStatus == -1) && (apiData.IsAssigned == -1) && (apiData.Interpreterid == 0){
                 cell.statusLbl.text = "Not Booked"
                 self.acceptAndDeclineStackView.isHidden = false
@@ -342,50 +485,13 @@ extension BlockedAppointmentVC:UITableViewDelegate,UITableViewDataSource{
                 cell.statusLbl.text = "Unavailable Appointment"
                 self.acceptAndDeclineStackView.isHidden = true
             }
+            cell.configure(apiData: apiData, isBooked: false)
+            
         }
-        let fName = userDefaults.value(forKey: UserDeafultsString.instance.fullName) ?? ""
-        cell.interpreterNameLbl.text = apiData.Interpretername ?? "N/A"//fName as? String ?? ""//apiData.Interpretername ?? "N/A"
-        cell.interpreterNameLbl.removeEmptyString()
-        cell.locationLbl.text = apiData.CLocation ?? "N/A"
-        cell.locationLbl.removeEmptyString()
-        cell.authenticationCodeLbl.text = apiData.authcode ?? "N/A"
-        cell.authenticationCodeLbl.removeEmptyString()
-//        cell.serviceTypeLbl.text = apiData.ServiceTypeName ?? "N/A"
-//        cell.serviceTypeLbl.removeEmptyString()
-        cell.venueNameLbl.text = apiData.VenueName ?? "N/A"
-        cell.venueNameLbl.removeEmptyString()
-        cell.departmentLbl.text = apiData.DepartmentName ?? "N/A"
-        cell.departmentLbl.removeEmptyString()
-        cell.contactLbl.text = apiData.ProviderName ?? "N/A"
-        cell.contactLbl.removeEmptyString()
-        cell.specialityLbl.text = apiData.SpecialityName ?? "N/A"
-        cell.specialityLbl.removeEmptyString()
-        cell.specialRequestsLbl.text = apiData.CText ?? "N/A"
-        cell.specialRequestsLbl.removeEmptyString()
-        cell.jobTypeLbl.text = apiData.JobType ?? "N/A"
-        cell.jobTypeLbl.removeEmptyString()
-        self.hitApiEncryptValue(value: apiData.CaseNumber ?? "") { plant, initialText in
-            cell.casePatientLbl.text = initialText
-            cell.casePatientLbl.removeEmptyString()
-        }
-        
-        self.hitApiEncryptValue(value: apiData.ClientCase ?? "") { plant, initialText in
-            cell.cpInitialsLbl.text = initialText ?? "N/A"
-            cell.cpInitialsLbl.removeEmptyString()
-        }
-        cell.statusLbl.text = apiData.AppointmentStatusType ?? "N/A"
-        cell.statusLbl.removeEmptyString()
-        cell.languageLbl.text = apiData.LanguageName ?? "N/A"
-        cell.languageLbl.removeEmptyString()
-        cell.descriptionLbl.text = apiData.CAptDetails ?? "N/A"
-        cell.descriptionLbl.removeEmptyString()
-        cell.statusView.visibility = .visible
-        cell.dateTimeLbl.text = apiData.StarEndDateTime ?? "N/A"
-        cell.dateTimeLbl.removeEmptyString()
-        
-        
         cell.collapseBtnOutlet.tag = indexPath.row
         cell.collapseBtnOutlet.addTarget(self, action: #selector(self.btnAction(_:)), for: .touchUpInside)
+       // let fName = userDefaults.value(forKey: UserDeafultsString.instance.fullName) ?? ""
+        
         return cell
     }
     
@@ -402,6 +508,7 @@ extension BlockedAppointmentVC:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+   
 }
 
 

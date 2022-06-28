@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+
 // Helper to determine if we're running on simulator or device
 struct PlatformUtils {
     static let isSimulator: Bool = {
@@ -149,5 +150,6 @@ class CommonClass: NSObject{
         let pickerDate = dformatter.date(from: dateAndTime) ?? Date()
         return pickerDate
     }
+   
 }
 
