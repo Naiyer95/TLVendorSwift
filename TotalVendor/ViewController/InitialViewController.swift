@@ -18,6 +18,7 @@ class InitialViewController: UIViewController {
         let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                         vc!.modalPresentationStyle = .fullScreen
         self.present(vc!, animated: true, completion: nil)
+        print("")
        
     }
     @IBAction func SignUpBtnAction(_ sender: Any) {

@@ -6030,7 +6030,7 @@
                                                 <rect key="frame" x="0.0" y="215" width="428" height="647"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <view key="tableFooterView" contentMode="scaleToFill" id="MtJ-3C-QhY">
-                                                    <rect key="frame" x="0.0" y="301.33333206176758" width="428" height="227"/>
+                                                    <rect key="frame" x="0.0" y="301.33333206176752" width="428" height="227.00000000000006"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3aA-03-dx5">
